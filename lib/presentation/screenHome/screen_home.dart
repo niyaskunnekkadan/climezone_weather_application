@@ -1,5 +1,14 @@
+import 'dart:ui';
+
+import 'package:clime_zone/core/color.dart';
+import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';
+import 'package:clime_zone/presentation/screenHome/widgets/card_head_title.dart';
+import 'package:clime_zone/presentation/screenHome/widgets/day_forecast_card.dart';
+import 'package:clime_zone/presentation/screenHome/widgets/day_forecast_item.dart';
 import 'package:clime_zone/presentation/screenHome/widgets/konst_appbar.dart';
+import 'package:clime_zone/presentation/screenHome/widgets/konst_location_btn.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ScreenHome extends StatelessWidget {
@@ -19,13 +28,16 @@ class ScreenHome extends StatelessWidget {
           ),
         ),
       ),
-      child: Scaffold(
-        backgroundColor: Colors.white.withOpacity(.3),
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(size.height * .1),
-          child: KonstAppBar(size: size),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 2),
+        child: Scaffold(
+          backgroundColor: Colors.white.withOpacity(.3),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(size.height * .1),
+            child: KonstAppBar(size: size),
+          ),
+          body: null,
         ),
-        body: null,
       ),
     );
   }
