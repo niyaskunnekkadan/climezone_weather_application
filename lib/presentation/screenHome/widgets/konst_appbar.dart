@@ -37,9 +37,11 @@ class KonstAppBar extends StatelessWidget {
           Visibility(
             visible: false,
             child: KonstElevatedButton(
-                size: size,
-                label: 'Turn on location service',
-                icon: CupertinoIcons.location),
+              size: size,
+              label: 'Turn on location service',
+              icon: CupertinoIcons.location,
+              color: Colors.white,
+            ),
           ),
         ],
       ),

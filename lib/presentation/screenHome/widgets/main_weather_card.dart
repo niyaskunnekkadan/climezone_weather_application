@@ -1,6 +1,8 @@
 import 'package:clime_zone/core/color.dart';
+import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/presentation/screenHome/widgets/konst_location_btn.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class MainWeatherCard extends StatelessWidget {
   const MainWeatherCard({
@@ -48,10 +50,12 @@ class MainWeatherCard extends StatelessWidget {
                 ),
               ]),
         ),
+        height10,
         KonstElevatedButton(
           size: size,
           label: 'AQI $air',
           icon: CupertinoIcons.wind_snow,
+          color: Colors.black,
         )
       ],
     );

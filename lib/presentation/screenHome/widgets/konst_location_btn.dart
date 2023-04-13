@@ -7,11 +7,13 @@ class KonstElevatedButton extends StatelessWidget {
     required this.size,
     required this.label,
     required this.icon,
+    required this.color,
   });
 
   final Size size;
   final String label;
   final IconData icon;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class KonstElevatedButton extends StatelessWidget {
           ),
         ),
         backgroundColor: MaterialStatePropertyAll(
-          Colors.white.withOpacity(.2),
+          color.withOpacity(.2),
         ),
         elevation: const MaterialStatePropertyAll(0),
       ),
