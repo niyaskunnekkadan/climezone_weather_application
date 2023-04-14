@@ -1,7 +1,7 @@
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
-import 'package:clime_zone/presentation/screenManageCity/widgets/city_card.dart';
-import 'package:clime_zone/presentation/screenManageCity/widgets/search_field.dart';
+import 'package:clime_zone/presentation/manageCity/widgets/city_card.dart';
+import 'package:clime_zone/presentation/manageCity/widgets/search_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';

@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:clime_zone/core/url.dart';
-import 'package:clime_zone/presentation/screenHome/widgets/credit_text.dart';
-import 'package:clime_zone/presentation/screenHome/widgets/konst_appbar.dart';
+import 'package:clime_zone/presentation/home/widgets/credit_text.dart';
+import 'package:clime_zone/presentation/home/widgets/konst_appbar.dart';
 import 'package:flutter/material.dart';
 
 class ScreenHome extends StatelessWidget {

@@ -1,5 +1,6 @@
-import 'package:clime_zone/presentation/screenHome/screen_home.dart';
-import 'package:clime_zone/presentation/screenManageCity/screen_manage_city.dart';
+import 'package:clime_zone/presentation/home/screen_home.dart';
+import 'package:clime_zone/presentation/manageCity/screen_manage_city.dart';
+import 'package:clime_zone/presentation/settings/screen_settings.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const ScreenHome(),
         '/manage_city': (context) => const ScreenManageCity(),
+        '/settings': (context) => const ScreenSettings(),
       },
     );
   }

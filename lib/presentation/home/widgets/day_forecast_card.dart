@@ -1,6 +1,6 @@
 import 'package:clime_zone/core/color.dart';
-import 'package:clime_zone/presentation/screenHome/widgets/card_head_title.dart';
-import 'package:clime_zone/presentation/screenHome/widgets/day_forecast_item.dart';
+import 'package:clime_zone/presentation/home/widgets/card_head_title.dart';
+import 'package:clime_zone/presentation/home/widgets/day_forecast_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
