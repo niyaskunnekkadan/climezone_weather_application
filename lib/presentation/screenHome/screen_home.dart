@@ -1,16 +1,8 @@
 import 'dart:ui';
 
-import 'package:clime_zone/core/color.dart';
-import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';
-import 'package:clime_zone/presentation/screenHome/widgets/card_head_title.dart';
-import 'package:clime_zone/presentation/screenHome/widgets/day_forecast_card.dart';
-import 'package:clime_zone/presentation/screenHome/widgets/day_forecast_item.dart';
+import 'package:clime_zone/presentation/screenHome/widgets/credit_text.dart';
 import 'package:clime_zone/presentation/screenHome/widgets/konst_appbar.dart';
-import 'package:clime_zone/presentation/screenHome/widgets/konst_location_btn.dart';
-import 'package:clime_zone/presentation/screenHome/widgets/main_weather_card.dart';
-import 'package:clime_zone/presentation/screenHome/widgets/sun_time_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ScreenHome extends StatelessWidget {
@@ -38,7 +30,7 @@ class ScreenHome extends StatelessWidget {
             preferredSize: Size.fromHeight(size.height * .1),
             child: KonstAppBar(size: size),
           ),
-          body: SunTimeCard(size: size),
+          body: null,
         ),
       ),
     );
