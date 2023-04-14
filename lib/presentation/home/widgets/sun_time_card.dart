@@ -1,33 +1,61 @@
+import 'dart:developer';
+
+import 'package:clime_zone/application/bloc/home_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
+import 'package:clime_zone/core/url.dart';
 import 'package:flutter/material.dart';
 
 class SunTimeCard extends StatelessWidget {
   const SunTimeCard({
     super.key,
     required this.size,
+    required this.Kstate,
   });
 
   final Size size;
+  final HomeState Kstate;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: size.height * .1,
-      width: size.width * .45,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.black.withOpacity(.2),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          sunRiseSetText(size, 'Sunrise', '06:17'),
-          sunRiseSetText(size, 'Sunset', '19:33'),
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        height: size.height * .1,
+        width: size.width * .45,
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(.2),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            sunRiseSetText(
+                size,
+                'Sunrise',
+                epocheToDateTime(
+                    Kstate.data == null ? 0 : Kstate.data!.sys!.sunrise)),
+            sunRiseSetText(
+                size,
+                'Sunset',
+                epocheToDateTime(
+                    Kstate.data == null ? 0 : Kstate.data!.sys!.sunset)),
+          ],
+        ),
       ),
     );
+  }
+
+  String epocheToDateTime(int? epoche) {
+    if (epoche == 0) {
+      return nullValue;
+    }
+
+    final date = DateTime.fromMillisecondsSinceEpoch(epoche!, isUtc: true)
+        .add(const Duration(hours: 5, minutes: 30));
+
+    return '${date.hour} : ${date.minute}';
   }
 
   Row sunRiseSetText(Size size, String label, String time) {

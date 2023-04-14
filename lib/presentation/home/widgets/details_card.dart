@@ -1,34 +1,76 @@
+import 'package:clime_zone/application/bloc/home_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
+import 'package:clime_zone/core/url.dart';
 import 'package:flutter/material.dart';
 
 class DetailsCard extends StatelessWidget {
   const DetailsCard({
     super.key,
     required this.size,
+    required this.kState,
   });
 
   final Size size;
+  final HomeState kState;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: size.width * .45,
-      height: size.height * .176,
-      decoration: BoxDecoration(
-        color: Colors.black.withOpacity(.2),
-        borderRadius: BorderRadius.circular(20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        width: size.width * .45,
+        height: size.height * .176,
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(.2),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            detailCardText(
+                size,
+                'Humidity',
+                kState.data == null
+                    ? nullValue
+                    : '${kState.data!.main!.humidity}%'),
+            detailCardText(
+                size,
+                'Feels like',
+                kState.data == null
+                    ? nullValue
+                    : '${kelvinToCelcius(kState.data!.main!.feelsLike)}°'),
+            detailCardText(
+                size,
+                'Wind Speed',
+                kState.data == null
+                    ? nullValue
+                    : '${kState.data!.wind!.speed}m/s'),
+            detailCardText(
+                size,
+                'Pressure',
+                kState.data == null
+                    ? nullValue
+                    : '${kState.data!.main!.pressure}mbar'),
+          ],
+        ),
       ),
-      padding: const EdgeInsets.all(14),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          detailCardText(size, 'Humidity', '94%'),
-          detailCardText(size, 'Real Feel', '25°'),
-          detailCardText(size, 'UV', '0'),
-          detailCardText(size, 'Pressure', '1010 mbar'),
-          detailCardText(size, 'Chance of Rain', '25%'),
-        ],
+    );
+  }
+
+  Padding errorAndLoad(Widget widget) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        width: size.width * .45,
+        height: size.height * .176,
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(.2),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        padding: const EdgeInsets.all(14),
+        child: widget,
       ),
     );
   }
@@ -41,7 +83,7 @@ class DetailsCard extends StatelessWidget {
           label,
           style: TextStyle(
             color: kWhite.withOpacity(.8),
-            fontSize: size.width * .041,
+            fontSize: size.width * .05,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -50,7 +92,7 @@ class DetailsCard extends StatelessWidget {
           val,
           style: TextStyle(
             color: kWhite,
-            fontSize: size.width * .044,
+            fontSize: size.width * .05,
             fontWeight: FontWeight.w600,
           ),
         ),

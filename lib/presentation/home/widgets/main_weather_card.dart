@@ -1,5 +1,7 @@
+import 'package:clime_zone/application/bloc/home_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
+import 'package:clime_zone/core/url.dart';
 import 'package:clime_zone/presentation/home/widgets/konst_location_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,56 +10,60 @@ class MainWeatherCard extends StatelessWidget {
   const MainWeatherCard({
     super.key,
     required this.size,
-    required this.climate,
-    required this.foggy_1,
-    required this.foggy_2,
-    required this.air,
+    required this.kState,
   });
 
   final Size size;
-  final int climate;
-  final int foggy_1;
-  final int foggy_2;
-  final int air;
+
+  final HomeState kState;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          '$climate°C',
-          style: TextStyle(
-              color: kWhite,
-              fontSize: size.width * .22,
-              fontWeight: FontWeight.w600,
-              shadows: const [
-                Shadow(
-                  offset: Offset(0, 10),
-                  blurRadius: 180,
-                ),
-              ]),
-        ),
-        Text(
-          'Foggy $foggy_1° / $foggy_2°',
-          style: TextStyle(
-              color: kWhite.withOpacity(.9),
-              fontSize: size.width * .05,
-              fontWeight: FontWeight.w500,
-              shadows: const [
-                Shadow(
-                  offset: Offset(0, 5),
-                  blurRadius: 80,
-                ),
-              ]),
-        ),
-        height10,
-        KonstElevatedButton(
-          size: size,
-          label: 'AQI $air',
-          icon: CupertinoIcons.wind_snow,
-          color: Colors.black,
-        )
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: size.height * .184),
+      child: Column(
+        children: [
+          Text(
+            kState.data == null
+                ? nullValue
+                : '${kelvinToCelcius(kState.data!.main!.temp)}°C',
+            style: TextStyle(
+                color: kWhite,
+                fontSize: size.width * .22,
+                fontWeight: FontWeight.w600,
+                shadows: const [
+                  Shadow(
+                    offset: Offset(0, 10),
+                    blurRadius: 180,
+                  ),
+                ]),
+          ),
+          Text(
+            kState.data == null
+                ? nullValue
+                : '${kState.data!.weather![0].main} ${kelvinToCelcius(kState.data!.main!.tempMin)}°C / ${kelvinToCelcius(kState.data!.main!.tempMax)}°C',
+            style: TextStyle(
+                color: kWhite.withOpacity(.9),
+                fontSize: size.width * .05,
+                fontWeight: FontWeight.w500,
+                shadows: const [
+                  Shadow(
+                    offset: Offset(0, 5),
+                    blurRadius: 80,
+                  ),
+                ]),
+          ),
+          height10,
+          KonstElevatedButton(
+            size: size,
+            label: kState.data == null
+                ? nullValue
+                : 'Wind Speed ${kState.data!.wind!.speed} m/s',
+            icon: CupertinoIcons.wind,
+            color: Colors.black,
+          )
+        ],
+      ),
     );
   }
 }

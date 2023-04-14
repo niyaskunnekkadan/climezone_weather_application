@@ -27,7 +27,7 @@ class DayForecastItem extends StatelessWidget {
               style: TextStyle(
                 color: kWhite,
                 fontWeight: FontWeight.w600,
-                fontSize: size.width * .06,
+                fontSize: size.width * .054,
               ),
             ),
           ],
