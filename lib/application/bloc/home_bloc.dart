@@ -21,7 +21,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         isLoading: true,
       ));
       final data =
-          await homeService.getMainWeatherData('11.1426968', '75.9239855');
+          await homeService.getMainWeatherData('${event.lat}', '${event.lon}');
 
       data.fold(
         (failure) {

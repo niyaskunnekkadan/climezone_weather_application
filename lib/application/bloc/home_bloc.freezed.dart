@@ -16,19 +16,21 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HomeEvent {
+  double get lat => throw _privateConstructorUsedError;
+  double get lon => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() mainCard,
+    required TResult Function(double lat, double lon) mainCard,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? mainCard,
+    TResult? Function(double lat, double lon)? mainCard,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? mainCard,
+    TResult Function(double lat, double lon)? mainCard,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,12 +50,18 @@ mixin _$HomeEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $HomeEventCopyWith<HomeEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $HomeEventCopyWith<$Res> {
   factory $HomeEventCopyWith(HomeEvent value, $Res Function(HomeEvent) then) =
       _$HomeEventCopyWithImpl<$Res, HomeEvent>;
+  @useResult
+  $Res call({double lat, double lon});
 }
 
 /// @nodoc
@@ -65,13 +73,34 @@ class _$HomeEventCopyWithImpl<$Res, $Val extends HomeEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? lat = null,
+    Object? lon = null,
+  }) {
+    return _then(_value.copyWith(
+      lat: null == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double,
+      lon: null == lon
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$MainCardCopyWith<$Res> {
+abstract class _$$MainCardCopyWith<$Res> implements $HomeEventCopyWith<$Res> {
   factory _$$MainCardCopyWith(
           _$MainCard value, $Res Function(_$MainCard) then) =
       __$$MainCardCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({double lat, double lon});
 }
 
 /// @nodoc
@@ -80,51 +109,83 @@ class __$$MainCardCopyWithImpl<$Res>
     implements _$$MainCardCopyWith<$Res> {
   __$$MainCardCopyWithImpl(_$MainCard _value, $Res Function(_$MainCard) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? lat = null,
+    Object? lon = null,
+  }) {
+    return _then(_$MainCard(
+      lat: null == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double,
+      lon: null == lon
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$MainCard implements MainCard {
-  const _$MainCard();
+  const _$MainCard({required this.lat, required this.lon});
+
+  @override
+  final double lat;
+  @override
+  final double lon;
 
   @override
   String toString() {
-    return 'HomeEvent.mainCard()';
+    return 'HomeEvent.mainCard(lat: $lat, lon: $lon)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$MainCard);
+        (other.runtimeType == runtimeType &&
+            other is _$MainCard &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, lat, lon);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MainCardCopyWith<_$MainCard> get copyWith =>
+      __$$MainCardCopyWithImpl<_$MainCard>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() mainCard,
+    required TResult Function(double lat, double lon) mainCard,
   }) {
-    return mainCard();
+    return mainCard(lat, lon);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? mainCard,
+    TResult? Function(double lat, double lon)? mainCard,
   }) {
-    return mainCard?.call();
+    return mainCard?.call(lat, lon);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? mainCard,
+    TResult Function(double lat, double lon)? mainCard,
     required TResult orElse(),
   }) {
     if (mainCard != null) {
-      return mainCard();
+      return mainCard(lat, lon);
     }
     return orElse();
   }
@@ -159,7 +220,17 @@ class _$MainCard implements MainCard {
 }
 
 abstract class MainCard implements HomeEvent {
-  const factory MainCard() = _$MainCard;
+  const factory MainCard(
+      {required final double lat, required final double lon}) = _$MainCard;
+
+  @override
+  double get lat;
+  @override
+  double get lon;
+  @override
+  @JsonKey(ignore: true)
+  _$$MainCardCopyWith<_$MainCard> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

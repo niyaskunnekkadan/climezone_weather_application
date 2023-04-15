@@ -16,13 +16,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenHome extends StatelessWidget {
-  const ScreenHome({super.key});
+  const ScreenHome({super.key, required this.lat, required this.lon});
+
+  final double lat;
+  final double lon;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<HomeBloc>().add(const HomeEvent.mainCard());
+      context.read<HomeBloc>().add(HomeEvent.mainCard(lat: lat, lon: lon));
     });
 
     return Container(
