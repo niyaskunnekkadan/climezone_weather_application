@@ -1,6 +1,8 @@
 import 'package:clime_zone/application/home/home_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/url.dart';
+import 'package:clime_zone/infrastructure/add_city/i_add_city.dart';
+import 'package:clime_zone/presentation/add_city/screen_add_city.dart';
 import 'package:clime_zone/presentation/widgets/tiny_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,11 @@ class KonstAppBar extends StatelessWidget {
       leading: Padding(
         padding: const EdgeInsets.only(left: 21),
         child: KonstAppBarButton(
-          onClick: () {},
+          onClick: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ScreenAddCity(),
+            ));
+          },
           size: size,
           tooltip: "manageCities",
           icon: CupertinoIcons.add,

@@ -1,3 +1,4 @@
+import 'package:clime_zone/application/add_city_bloc/add_city_bloc.dart';
 import 'package:clime_zone/application/home/home_bloc.dart';
 import 'package:clime_zone/domain/core/di/injectoble_configue.dart';
 import 'package:clime_zone/presentation/air_quality/screen_air_quality.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => getIt<HomeBloc>()),
+        BlocProvider(create: (context) => getIt<AddCityBloc>()),
       ],
       child: MaterialApp(
         title: 'ClimeZone',

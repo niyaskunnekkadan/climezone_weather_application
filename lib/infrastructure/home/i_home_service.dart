@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:clime_zone/domain/core/api/api_end_points.dart';
 import 'package:clime_zone/domain/core/failure/main_failure.dart';
 import 'package:clime_zone/domain/home/home_service.dart';
@@ -45,9 +43,8 @@ class IHomeService implements HomeService {
 
     try {
       final response = await dio.get(url);
-      log(response.toString());
+
       if (response.statusCode == 200 || response.statusCode == 201) {
-        log(Right(AqIndexModel.fromJson(response.data)).toString());
         return Right(AqIndexModel.fromJson(response.data));
       } else {
         return const Left(MainFailure.serverFailure());

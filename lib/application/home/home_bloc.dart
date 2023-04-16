@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:clime_zone/domain/core/failure/main_failure.dart';
 import 'package:clime_zone/domain/home/home_service.dart';
