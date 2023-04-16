@@ -1,6 +1,4 @@
-import 'dart:developer';
-
-import 'package:clime_zone/application/bloc/home_bloc.dart';
+import 'package:clime_zone/application/home/home_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';
@@ -10,11 +8,11 @@ class SunTimeCard extends StatelessWidget {
   const SunTimeCard({
     super.key,
     required this.size,
-    required this.Kstate,
+    required this.kState,
   });
 
   final Size size;
-  final HomeState Kstate;
+  final HomeState kState;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,7 @@ class SunTimeCard extends StatelessWidget {
       child: Container(
         height: size.height * .1,
         width: size.width * .45,
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(.2),
           borderRadius: BorderRadius.circular(20),
@@ -35,12 +33,12 @@ class SunTimeCard extends StatelessWidget {
                 size,
                 'Sunrise',
                 epocheToDateTime(
-                    Kstate.data == null ? 0 : Kstate.data!.sys!.sunrise)),
+                    kState.data == null ? 0 : kState.data!.sys!.sunrise)),
             sunRiseSetText(
                 size,
                 'Sunset',
                 epocheToDateTime(
-                    Kstate.data == null ? 0 : Kstate.data!.sys!.sunset)),
+                    kState.data == null ? 0 : kState.data!.sys!.sunset)),
           ],
         ),
       ),

@@ -7,9 +7,11 @@ class CreditText extends StatelessWidget {
   const CreditText({
     super.key,
     required this.size,
+    required this.color,
   });
 
   final Size size;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class CreditText extends StatelessWidget {
           Text(
             'Data provided in part by ',
             style: TextStyle(
-              color: kWhite.withOpacity(.4),
+              color: color.withOpacity(.4),
               fontWeight: FontWeight.w400,
               fontSize: size.width * .032,
             ),
@@ -33,7 +35,7 @@ class CreditText extends StatelessWidget {
                   content: Text("coudn't follows this url"),
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 );
-                throw ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             },
             child: Text(

@@ -1,4 +1,3 @@
-import 'package:clime_zone/presentation/splash/screen_splash.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';

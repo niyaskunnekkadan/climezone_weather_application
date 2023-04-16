@@ -1,11 +1,7 @@
-import 'dart:developer';
-
 import 'package:clime_zone/infrastructure/splash/i_splash_service.dart';
 import 'package:clime_zone/presentation/home/screen_home.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:geolocator/geolocator.dart';
 
 class ScreenSplash extends StatelessWidget {
@@ -76,7 +72,7 @@ class ScreenSplash extends StatelessWidget {
         btn: 'settings',
         onClick: () async {
           GeolocatorPlatform geolocatorPlatform = GeolocatorPlatform.instance;
-          await isApp
+          isApp
               ? geolocatorPlatform.openAppSettings()
               : geolocatorPlatform.openLocationSettings();
           Navigator.pop(context);

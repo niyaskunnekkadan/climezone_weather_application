@@ -1,6 +1,5 @@
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CradHeadTitle extends StatelessWidget {

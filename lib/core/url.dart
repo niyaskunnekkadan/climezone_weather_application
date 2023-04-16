@@ -12,7 +12,3 @@ const String nullValue = 'N/A';
 int kelvinToCelcius(double? kelvin) {
   return (kelvin! - 273.15).round();
 }
-
-const imgList = [
-  'https://e0.pxfuel.com/wallpapers/816/315/desktop-wallpaper-best-ultra-nature-data-src-full-261978-nature-mobile.jpg',
-];

@@ -1,4 +1,4 @@
-import 'package:clime_zone/application/bloc/home_bloc.dart';
+import 'package:clime_zone/application/home/home_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';
@@ -55,22 +55,6 @@ class DetailsCard extends StatelessWidget {
                     : '${kState.data!.main!.pressure}mbar'),
           ],
         ),
-      ),
-    );
-  }
-
-  Padding errorAndLoad(Widget widget) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Container(
-        width: size.width * .45,
-        height: size.height * .176,
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(.2),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        padding: const EdgeInsets.all(14),
-        child: widget,
       ),
     );
   }

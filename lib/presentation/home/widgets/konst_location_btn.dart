@@ -1,7 +1,5 @@
-import 'package:clime_zone/application/bloc/home_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class KonstElevatedButton extends StatelessWidget {
   const KonstElevatedButton({

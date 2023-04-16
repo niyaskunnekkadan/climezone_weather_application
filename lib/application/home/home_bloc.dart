@@ -2,9 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:clime_zone/domain/core/failure/main_failure.dart';
 import 'package:clime_zone/domain/home/home_service.dart';
 import 'package:clime_zone/domain/home/models/main_weather_model/main_weather_model.dart';
-
-import 'package:clime_zone/infrastructure/home/i_home_service.dart';
-import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 

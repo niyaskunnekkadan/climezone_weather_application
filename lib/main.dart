@@ -1,7 +1,5 @@
-import 'package:clime_zone/application/bloc/home_bloc.dart';
+import 'package:clime_zone/application/home/home_bloc.dart';
 import 'package:clime_zone/domain/core/di/injectoble_configue.dart';
-import 'package:clime_zone/presentation/home/screen_home.dart';
-import 'package:clime_zone/presentation/manageCity/screen_manage_city.dart';
 import 'package:clime_zone/presentation/settings/screen_settings.dart';
 import 'package:clime_zone/presentation/splash/screen_splash.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => getIt<HomeBloc>(),
-        )
+        BlocProvider(create: (context) => getIt<HomeBloc>()),
       ],
       child: MaterialApp(
         title: 'ClimeZone',
@@ -34,8 +30,6 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => const ScreenSplash(),
-          //'/home': (context) =>   ScreenHome(lat: lat, lon: lon),
-          '/manage_city': (context) => const ScreenManageCity(),
           '/settings': (context) => const ScreenSettings(),
         },
       ),

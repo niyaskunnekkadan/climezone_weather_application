@@ -9,7 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:clime_zone/application/bloc/home_bloc.dart' as _i5;
+import 'package:clime_zone/application/home/home_bloc.dart' as _i5;
 import 'package:clime_zone/domain/home/home_service.dart' as _i3;
 import 'package:clime_zone/infrastructure/home/i_home_service.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;

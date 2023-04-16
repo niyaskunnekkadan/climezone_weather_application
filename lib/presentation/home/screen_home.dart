@@ -1,17 +1,12 @@
-import 'dart:developer';
 import 'dart:ui';
-
-import 'package:clime_zone/application/bloc/home_bloc.dart';
-import 'package:clime_zone/core/sizes.dart';
-import 'package:clime_zone/core/url.dart';
+import 'package:clime_zone/application/home/home_bloc.dart';
+import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/presentation/home/widgets/credit_text.dart';
-import 'package:clime_zone/presentation/home/widgets/day_forecast_card.dart';
 import 'package:clime_zone/presentation/home/widgets/details_card.dart';
 import 'package:clime_zone/presentation/home/widgets/konst_appbar.dart';
 import 'package:clime_zone/presentation/home/widgets/main_weather_card.dart';
 import 'package:clime_zone/presentation/home/widgets/sun_time_card.dart';
 import 'package:clime_zone/presentation/widgets/tiny_widgets.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,11 +26,11 @@ class ScreenHome extends StatelessWidget {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: NetworkImage(
-            imgList[0],
+          image: AssetImage(
+            'assets/image/desktop-wallpaper-best-ultra-nature-data-src-full-261978-nature-mobile.jpg',
           ),
         ),
       ),
@@ -46,9 +41,8 @@ class ScreenHome extends StatelessWidget {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(size.height * .1),
             child: BlocBuilder<HomeBloc, HomeState>(
-              builder: (context, state) {
-                return KonstAppBar(size: size, kState: state);
-              },
+              builder: (context, state) =>
+                  KonstAppBar(size: size, kState: state, lat: lat, lon: lon),
             ),
           ),
           body: Padding(
@@ -56,19 +50,18 @@ class ScreenHome extends StatelessWidget {
             child: BlocBuilder<HomeBloc, HomeState>(
               builder: (context, state) {
                 if (state.isLoading) {
-                  return const Center(child: loadingIndictor);
+                  return loadingIndictor;
                 } else if (state.isClientError) {
-                  return Center(child: clientFailureWidget);
+                  return clientFailureWidget;
                 } else if (state.isServerError) {
-                  return Center(child: serverFailureWidget);
+                  return serverFailureWidget;
                 } else {
                   return ListView(
                     children: [
                       MainWeatherCard(size: size, kState: state),
-                      DayForeCastCard(size: size),
                       DetailsCard(size: size, kState: state),
-                      SunTimeCard(size: size, Kstate: state),
-                      CreditText(size: size),
+                      SunTimeCard(size: size, kState: state),
+                      CreditText(size: size, color: kWhite),
                     ],
                   );
                 }
