@@ -45,27 +45,34 @@ class ScreenHome extends StatelessWidget {
                   KonstAppBar(size: size, kState: state, lat: lat, lon: lon),
             ),
           ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: BlocBuilder<HomeBloc, HomeState>(
-              builder: (context, state) {
-                if (state.isLoading) {
-                  return loadingIndictor;
-                } else if (state.isClientError) {
-                  return clientFailureWidget;
-                } else if (state.isServerError) {
-                  return serverFailureWidget;
-                } else {
-                  return ListView(
-                    children: [
-                      MainWeatherCard(size: size, kState: state),
-                      DetailsCard(size: size, kState: state),
-                      SunTimeCard(size: size, kState: state),
-                      CreditText(size: size, color: kWhite),
-                    ],
-                  );
-                }
-              },
+          body: RefreshIndicator(
+            onRefresh: () async {
+              context
+                  .read<HomeBloc>()
+                  .add(HomeEvent.mainCard(lat: lat, lon: lon));
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  if (state.isLoading) {
+                    return loadingIndictor;
+                  } else if (state.isClientError) {
+                    return clientFailureWidget;
+                  } else if (state.isServerError) {
+                    return serverFailureWidget;
+                  } else {
+                    return ListView(
+                      children: [
+                        MainWeatherCard(size: size, kState: state),
+                        DetailsCard(size: size, kState: state),
+                        SunTimeCard(size: size, kState: state),
+                        CreditText(size: size, color: kWhite),
+                      ],
+                    );
+                  }
+                },
+              ),
             ),
           ),
         ),

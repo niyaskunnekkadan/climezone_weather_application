@@ -2,6 +2,8 @@ import 'package:clime_zone/application/home/home_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';
+import 'package:clime_zone/domain/home/models/aqi_model/aq_index_model/components.dart';
+import 'package:clime_zone/presentation/air_quality/screen_air_quality.dart';
 import 'package:clime_zone/presentation/home/widgets/konst_location_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,6 @@ class MainWeatherCard extends StatelessWidget {
   });
 
   final Size size;
-
   final HomeState kState;
 
   @override
@@ -58,10 +59,20 @@ class MainWeatherCard extends StatelessWidget {
             size: size,
             label: kState.data == null
                 ? nullValue
-                : 'Wind Speed ${kState.data!.wind!.speed} m/s',
+                : 'AQI ${kState.aqiList[0].main!.aqi}',
             icon: CupertinoIcons.wind,
             color: Colors.black,
-          )
+            onClick: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) {
+                  return ScreenAirQuality(
+                    aqiValue: kState.aqiList[0].main!.aqi ?? 00,
+                    itemValues: kState.aqiList[0].components ?? Components(),
+                  );
+                },
+              ));
+            },
+          ),
         ],
       ),
     );

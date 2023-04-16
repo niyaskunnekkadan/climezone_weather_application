@@ -8,17 +8,19 @@ class KonstElevatedButton extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.color,
+    required this.onClick,
   });
 
   final Size size;
   final String label;
   final IconData icon;
   final Color color;
+  final void Function() onClick;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: () {},
+      onPressed: onClick,
       style: ButtonStyle(
         padding: const MaterialStatePropertyAll(
           EdgeInsets.symmetric(

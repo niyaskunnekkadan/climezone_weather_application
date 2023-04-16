@@ -235,6 +235,7 @@ abstract class MainCard implements HomeEvent {
 
 /// @nodoc
 mixin _$HomeState {
+  List<AQIDataList> get aqiList => throw _privateConstructorUsedError;
   MainWeatherModel? get data => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isClientError => throw _privateConstructorUsedError;
@@ -251,7 +252,8 @@ abstract class $HomeStateCopyWith<$Res> {
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
   $Res call(
-      {MainWeatherModel? data,
+      {List<AQIDataList> aqiList,
+      MainWeatherModel? data,
       bool isLoading,
       bool isClientError,
       bool isServerError});
@@ -270,12 +272,17 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? aqiList = null,
     Object? data = freezed,
     Object? isLoading = null,
     Object? isClientError = null,
     Object? isServerError = null,
   }) {
     return _then(_value.copyWith(
+      aqiList: null == aqiList
+          ? _value.aqiList
+          : aqiList // ignore: cast_nullable_to_non_nullable
+              as List<AQIDataList>,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -304,7 +311,8 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {MainWeatherModel? data,
+      {List<AQIDataList> aqiList,
+      MainWeatherModel? data,
       bool isLoading,
       bool isClientError,
       bool isServerError});
@@ -321,12 +329,17 @@ class __$$_HomeStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? aqiList = null,
     Object? data = freezed,
     Object? isLoading = null,
     Object? isClientError = null,
     Object? isServerError = null,
   }) {
     return _then(_$_HomeState(
+      aqiList: null == aqiList
+          ? _value._aqiList
+          : aqiList // ignore: cast_nullable_to_non_nullable
+              as List<AQIDataList>,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -351,10 +364,20 @@ class __$$_HomeStateCopyWithImpl<$Res>
 
 class _$_HomeState implements _HomeState {
   const _$_HomeState(
-      {this.data,
+      {required final List<AQIDataList> aqiList,
+      this.data,
       required this.isLoading,
       required this.isClientError,
-      required this.isServerError});
+      required this.isServerError})
+      : _aqiList = aqiList;
+
+  final List<AQIDataList> _aqiList;
+  @override
+  List<AQIDataList> get aqiList {
+    if (_aqiList is EqualUnmodifiableListView) return _aqiList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_aqiList);
+  }
 
   @override
   final MainWeatherModel? data;
@@ -367,7 +390,7 @@ class _$_HomeState implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(data: $data, isLoading: $isLoading, isClientError: $isClientError, isServerError: $isServerError)';
+    return 'HomeState(aqiList: $aqiList, data: $data, isLoading: $isLoading, isClientError: $isClientError, isServerError: $isServerError)';
   }
 
   @override
@@ -375,6 +398,7 @@ class _$_HomeState implements _HomeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_HomeState &&
+            const DeepCollectionEquality().equals(other._aqiList, _aqiList) &&
             (identical(other.data, data) || other.data == data) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
@@ -385,8 +409,13 @@ class _$_HomeState implements _HomeState {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, data, isLoading, isClientError, isServerError);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_aqiList),
+      data,
+      isLoading,
+      isClientError,
+      isServerError);
 
   @JsonKey(ignore: true)
   @override
@@ -397,11 +426,14 @@ class _$_HomeState implements _HomeState {
 
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
-      {final MainWeatherModel? data,
+      {required final List<AQIDataList> aqiList,
+      final MainWeatherModel? data,
       required final bool isLoading,
       required final bool isClientError,
       required final bool isServerError}) = _$_HomeState;
 
+  @override
+  List<AQIDataList> get aqiList;
   @override
   MainWeatherModel? get data;
   @override

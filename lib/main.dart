@@ -1,5 +1,6 @@
 import 'package:clime_zone/application/home/home_bloc.dart';
 import 'package:clime_zone/domain/core/di/injectoble_configue.dart';
+import 'package:clime_zone/presentation/air_quality/screen_air_quality.dart';
 import 'package:clime_zone/presentation/settings/screen_settings.dart';
 import 'package:clime_zone/presentation/splash/screen_splash.dart';
 import 'package:flutter/material.dart';

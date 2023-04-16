@@ -29,12 +29,10 @@ class KonstAppBar extends StatelessWidget {
       leading: Padding(
         padding: const EdgeInsets.only(left: 21),
         child: KonstAppBarButton(
-          onClick: () => context
-              .read<HomeBloc>()
-              .add(HomeEvent.mainCard(lat: lat, lon: lon)),
+          onClick: () {},
           size: size,
           tooltip: "manageCities",
-          icon: CupertinoIcons.refresh,
+          icon: CupertinoIcons.add,
         ),
       ),
       title: kState.isLoading
