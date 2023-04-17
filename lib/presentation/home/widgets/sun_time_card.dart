@@ -20,7 +20,6 @@ class SunTimeCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
         height: size.height * .1,
-        width: size.width * .45,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(.2),

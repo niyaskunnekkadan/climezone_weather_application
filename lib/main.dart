@@ -1,4 +1,5 @@
 import 'package:clime_zone/application/add_city_bloc/add_city_bloc.dart';
+import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart';
 import 'package:clime_zone/application/home/home_bloc.dart';
 import 'package:clime_zone/domain/core/di/injectoble_configue.dart';
 import 'package:clime_zone/presentation/air_quality/screen_air_quality.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => getIt<HomeBloc>()),
         BlocProvider(create: (context) => getIt<AddCityBloc>()),
+        BlocProvider(create: (context) => getIt<DayHourForecastBloc>()),
       ],
       child: MaterialApp(
         title: 'ClimeZone',

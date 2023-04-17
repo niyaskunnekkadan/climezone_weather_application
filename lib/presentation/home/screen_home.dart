@@ -1,12 +1,16 @@
 import 'dart:ui';
+import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart';
 import 'package:clime_zone/application/home/home_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/presentation/home/widgets/credit_text.dart';
+import 'package:clime_zone/presentation/home/widgets/day_forecast_widget.dart';
 import 'package:clime_zone/presentation/home/widgets/details_card.dart';
 import 'package:clime_zone/presentation/home/widgets/konst_appbar.dart';
+import 'package:clime_zone/presentation/home/widgets/konst_location_btn.dart';
 import 'package:clime_zone/presentation/home/widgets/main_weather_card.dart';
 import 'package:clime_zone/presentation/home/widgets/sun_time_card.dart';
 import 'package:clime_zone/presentation/widgets/tiny_widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +25,9 @@ class ScreenHome extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<HomeBloc>().add(HomeEvent.mainCard(lat: lat, lon: lon));
+      context
+          .read<DayHourForecastBloc>()
+          .add(DayHourForecastEvent.init(lat: lat, lon: lon));
     });
 
     return Container(
@@ -65,6 +72,24 @@ class ScreenHome extends StatelessWidget {
                     return ListView(
                       children: [
                         MainWeatherCard(size: size, kState: state),
+                        BlocBuilder<DayHourForecastBloc, DayHourForecastState>(
+                          builder: (context, state) {
+                            if (state.isLoading) {
+                              return loadingIndictor;
+                            }
+                            if (state.hasError) {
+                              return loadingIndictor;
+                            }
+                            if (state.perThreeHour.isEmpty) {
+                              return Container(
+                                color: Colors.yellow,
+                                height: 20,
+                                width: 30,
+                              );
+                            }
+                            return DayForecastWidget(size: size, kState: state);
+                          },
+                        ),
                         DetailsCard(size: size, kState: state),
                         SunTimeCard(size: size, kState: state),
                         CreditText(size: size, color: kWhite),
