@@ -310,7 +310,8 @@ abstract class Searching implements AddCityEvent {
 /// @nodoc
 mixin _$AddCityState {
   List<AddedCityItem> get addedCities => throw _privateConstructorUsedError;
-  SearchCityModel? get searchingCities => throw _privateConstructorUsedError;
+  List<SearchCityModel> get searchingCities =>
+      throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
 
@@ -327,7 +328,7 @@ abstract class $AddCityStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<AddedCityItem> addedCities,
-      SearchCityModel? searchingCities,
+      List<SearchCityModel> searchingCities,
       bool isLoading,
       bool isError});
 }
@@ -346,7 +347,7 @@ class _$AddCityStateCopyWithImpl<$Res, $Val extends AddCityState>
   @override
   $Res call({
     Object? addedCities = null,
-    Object? searchingCities = freezed,
+    Object? searchingCities = null,
     Object? isLoading = null,
     Object? isError = null,
   }) {
@@ -355,10 +356,10 @@ class _$AddCityStateCopyWithImpl<$Res, $Val extends AddCityState>
           ? _value.addedCities
           : addedCities // ignore: cast_nullable_to_non_nullable
               as List<AddedCityItem>,
-      searchingCities: freezed == searchingCities
+      searchingCities: null == searchingCities
           ? _value.searchingCities
           : searchingCities // ignore: cast_nullable_to_non_nullable
-              as SearchCityModel?,
+              as List<SearchCityModel>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -381,7 +382,7 @@ abstract class _$$_AddCityStateCopyWith<$Res>
   @useResult
   $Res call(
       {List<AddedCityItem> addedCities,
-      SearchCityModel? searchingCities,
+      List<SearchCityModel> searchingCities,
       bool isLoading,
       bool isError});
 }
@@ -398,7 +399,7 @@ class __$$_AddCityStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? addedCities = null,
-    Object? searchingCities = freezed,
+    Object? searchingCities = null,
     Object? isLoading = null,
     Object? isError = null,
   }) {
@@ -407,10 +408,10 @@ class __$$_AddCityStateCopyWithImpl<$Res>
           ? _value._addedCities
           : addedCities // ignore: cast_nullable_to_non_nullable
               as List<AddedCityItem>,
-      searchingCities: freezed == searchingCities
-          ? _value.searchingCities
+      searchingCities: null == searchingCities
+          ? _value._searchingCities
           : searchingCities // ignore: cast_nullable_to_non_nullable
-              as SearchCityModel?,
+              as List<SearchCityModel>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -428,10 +429,11 @@ class __$$_AddCityStateCopyWithImpl<$Res>
 class _$_AddCityState implements _AddCityState {
   const _$_AddCityState(
       {required final List<AddedCityItem> addedCities,
-      this.searchingCities,
+      required final List<SearchCityModel> searchingCities,
       required this.isLoading,
       required this.isError})
-      : _addedCities = addedCities;
+      : _addedCities = addedCities,
+        _searchingCities = searchingCities;
 
   final List<AddedCityItem> _addedCities;
   @override
@@ -441,8 +443,14 @@ class _$_AddCityState implements _AddCityState {
     return EqualUnmodifiableListView(_addedCities);
   }
 
+  final List<SearchCityModel> _searchingCities;
   @override
-  final SearchCityModel? searchingCities;
+  List<SearchCityModel> get searchingCities {
+    if (_searchingCities is EqualUnmodifiableListView) return _searchingCities;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_searchingCities);
+  }
+
   @override
   final bool isLoading;
   @override
@@ -460,8 +468,8 @@ class _$_AddCityState implements _AddCityState {
             other is _$_AddCityState &&
             const DeepCollectionEquality()
                 .equals(other._addedCities, _addedCities) &&
-            (identical(other.searchingCities, searchingCities) ||
-                other.searchingCities == searchingCities) &&
+            const DeepCollectionEquality()
+                .equals(other._searchingCities, _searchingCities) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isError, isError) || other.isError == isError));
@@ -471,7 +479,7 @@ class _$_AddCityState implements _AddCityState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_addedCities),
-      searchingCities,
+      const DeepCollectionEquality().hash(_searchingCities),
       isLoading,
       isError);
 
@@ -485,14 +493,14 @@ class _$_AddCityState implements _AddCityState {
 abstract class _AddCityState implements AddCityState {
   const factory _AddCityState(
       {required final List<AddedCityItem> addedCities,
-      final SearchCityModel? searchingCities,
+      required final List<SearchCityModel> searchingCities,
       required final bool isLoading,
       required final bool isError}) = _$_AddCityState;
 
   @override
   List<AddedCityItem> get addedCities;
   @override
-  SearchCityModel? get searchingCities;
+  List<SearchCityModel> get searchingCities;
   @override
   bool get isLoading;
   @override

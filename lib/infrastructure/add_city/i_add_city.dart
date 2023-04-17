@@ -12,27 +12,40 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: AddCityService)
 class IAddCity implements AddCityService {
   @override
-  Future<Either<MainFailure, SearchCityModel>> getCities(String place) async {
+  Future<Either<MainFailure, List<SearchCityModel>>> getCities(
+      String place) async {
     final url = ApiEndPoints.searchPlaceApi.replaceAll('{val}', place);
     Dio dio = Dio(BaseOptions(responseType: ResponseType.plain));
 
-    Map<String, dynamic> listToMap(List<dynamic> d) {
-      return d[0];
+    Map<String, dynamic> listToMap(List<dynamic> d, int i) {
+      if (d.length <= i) {
+        return d[i];
+      }
+      return d[i];
     }
 
     try {
       final response = await dio.get(url);
-      log(response.data.toString());
+      // log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final jsonn = jsonDecode(response.data);
-        return Right(SearchCityModel.fromJson(listToMap(jsonn)));
+        List<SearchCityModel> _list = [];
+        for (int i = 0; i < 5; i++) {
+          _list.add(SearchCityModel.fromJson(listToMap(jsonn, i)));
+        }
+
+        if (_list.isNotEmpty) {
+          return Right(_list);
+        } else {
+          return const Right([]);
+        }
       } else {
         return const Left(MainFailure.serverFailure());
       }
-    } on DioError catch (_) {
+    } on DioError catch (e) {
+      log(e.toString());
       return const Left(MainFailure.serverFailure());
     } catch (e) {
-      log(e.toString());
       return const Left(MainFailure.clientFailure());
     }
   }

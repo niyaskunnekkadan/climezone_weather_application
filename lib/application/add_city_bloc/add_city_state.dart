@@ -4,13 +4,14 @@ part of 'add_city_bloc.dart';
 class AddCityState with _$AddCityState {
   const factory AddCityState({
     required List<AddedCityItem> addedCities,
-    SearchCityModel? searchingCities,
+    required List<SearchCityModel> searchingCities,
     required bool isLoading,
     required bool isError,
   }) = _AddCityState;
 
   factory AddCityState.initial() => const AddCityState(
         addedCities: [],
+        searchingCities: [],
         isLoading: false,
         isError: false,
       );

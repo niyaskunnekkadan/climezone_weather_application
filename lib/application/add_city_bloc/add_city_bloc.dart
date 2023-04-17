@@ -5,6 +5,7 @@ import 'package:clime_zone/domain/add_city/add_city_service.dart';
 import 'package:clime_zone/domain/add_city/model/search_city_model/search_city_model.dart';
 import 'package:clime_zone/domain/core/failure/main_failure.dart';
 import 'package:clime_zone/presentation/add_city/screen_add_city.dart';
+import 'package:clime_zone/presentation/add_city/widgets/added_cities_widget.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -27,28 +28,46 @@ class AddCityBloc extends Bloc<AddCityEvent, AddCityState> {
       );
     });
 
+    /*
+    
+    
+      Searching places
+    
+     */
     on<Searching>((event, emit) async {
       emit(state.copyWith(isLoading: true));
-      final data = await addCityService.getCities(event.place);
-      data.fold(
-        (MainFailure fail) {
-          return emit(
-            AddCityState(
-              addedCities: state.addedCities,
-              isLoading: false,
-              isError: true,
-            ),
-          );
-        },
-        (SearchCityModel success) => emit(
+      if (event.place.isEmpty) {
+        emit(
           AddCityState(
+            searchingCities: [],
             addedCities: state.addedCities,
-            searchingCities: success,
             isLoading: false,
             isError: false,
           ),
-        ),
-      );
+        );
+      } else {
+        final data = await addCityService.getCities(event.place);
+        data.fold(
+          (MainFailure fail) {
+            return emit(
+              AddCityState(
+                searchingCities: [],
+                addedCities: state.addedCities,
+                isLoading: false,
+                isError: true,
+              ),
+            );
+          },
+          (List<SearchCityModel> success) => emit(
+            AddCityState(
+              addedCities: state.addedCities,
+              searchingCities: success,
+              isLoading: false,
+              isError: false,
+            ),
+          ),
+        );
+      }
     });
   }
 }

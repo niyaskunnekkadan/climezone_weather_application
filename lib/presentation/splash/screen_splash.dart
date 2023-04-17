@@ -29,7 +29,7 @@ class ScreenSplash extends StatelessWidget {
           }
         },
         (success) {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
+          return Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) =>
                 ScreenHome(lat: success.latitude, lon: success.longitude),
           ));

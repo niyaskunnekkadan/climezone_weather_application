@@ -1,7 +1,12 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:clime_zone/application/add_city_bloc/add_city_bloc.dart';
 
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
+import 'package:clime_zone/core/url.dart';
+import 'package:clime_zone/presentation/add_city/widgets/search_res_widget.dart';
 import 'package:clime_zone/presentation/widgets/tiny_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +22,8 @@ class ScreenAddCity extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AddCityBloc>().add(const Initial());
     });
+
+    final _debouner = Debouncer(milliseconds: 850);
     return Scaffold(
       backgroundColor: kBlack,
       appBar: AppBar(
@@ -39,9 +46,16 @@ class ScreenAddCity extends StatelessWidget {
           children: [
             CupertinoSearchTextField(
               onChanged: (value) {
-                context
-                    .read<AddCityBloc>()
-                    .add(AddCityEvent.searching(place: value));
+                _debouner.run(() {
+                  if (value.isEmpty) {
+                    context
+                        .read<AddCityBloc>()
+                        .add(AddCityEvent.searching(place: value));
+                  }
+                  return context
+                      .read<AddCityBloc>()
+                      .add(AddCityEvent.searching(place: value));
+                });
               },
               backgroundColor: Colors.grey.shade800,
               prefixIcon:
@@ -69,11 +83,21 @@ class ScreenAddCity extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ));
                 }
-                return state.searchingCities != null
+                return state.searchingCities.isNotEmpty
                     ? Expanded(
                         child: ListView(
                           children: List.generate(
-                              10, (index) => const SearchCityResWidget()),
+                            state.searchingCities.length,
+                            (index) => SearchCityResWidget(
+                              cityName: state.searchingCities[index].name ??
+                                  nullValue,
+                              stateName: state.searchingCities[index].state ??
+                                  nullValue,
+                              countryName:
+                                  state.searchingCities[index].country ??
+                                      nullValue,
+                            ),
+                          ),
                         ),
                       )
                     : Expanded(
@@ -90,51 +114,14 @@ class ScreenAddCity extends StatelessWidget {
   }
 }
 
-class SearchCityResWidget extends StatelessWidget {
-  const SearchCityResWidget({
-    super.key,
-  });
+class Debouncer {
+  final int milliseconds;
+  Timer? _timer;
 
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: const Text(
-        'Kochi',
-        style: TextStyle(color: Colors.white),
-      ),
-      subtitle: const Text(
-        'Kerala, India',
-        style: TextStyle(color: Colors.white70),
-      ),
-      trailing: IconButton(
-        onPressed: () {},
-        color: Colors.grey.shade200,
-        splashRadius: 30,
-        icon: const Icon(
-          CupertinoIcons.add,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-}
+  Debouncer({required this.milliseconds});
 
-class AddedCityItem extends StatelessWidget {
-  const AddedCityItem({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: Card(
-        child: ListTile(
-          title: Text('Kochi'),
-          subtitle: Text('AQI 36 36/25'),
-          trailing: Text('42'),
-        ),
-      ),
-    );
+  run(VoidCallback action) {
+    _timer?.cancel();
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
   }
 }
