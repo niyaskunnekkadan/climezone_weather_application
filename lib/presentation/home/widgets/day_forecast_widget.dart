@@ -29,7 +29,7 @@ class DayForecastWidget extends StatelessWidget {
         color: Colors.black.withOpacity(.2),
         borderRadius: BorderRadius.circular(20),
       ),
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.all(20),
       child: Column(
         children: [
           Row(
@@ -47,17 +47,23 @@ class DayForecastWidget extends StatelessWidget {
             ],
           ),
           DayForecastDayItem(
-              size: size,
-              label: '${kState.perThreeHour[i].dtTxt}',
-              value: '${kelvinToCelcius(kState.perThreeHour[1].main!.temp)}'),
+            size: size,
+            label: '${kState.perThreeHour[i].dtTxt}',
+            value: '${kelvinToCelcius(kState.perThreeHour[1].main!.temp)}',
+            iconId: '${kState.perThreeHour[i].weather![0].icon}',
+          ),
           DayForecastDayItem(
-              size: size,
-              label: '${kState.perThreeHour[i + 8].dtTxt}',
-              value: '${kelvinToCelcius(kState.perThreeHour[18].main!.temp)}'),
+            size: size,
+            label: '${kState.perThreeHour[i + 8].dtTxt}',
+            value: '${kelvinToCelcius(kState.perThreeHour[18].main!.temp)}',
+            iconId: '${kState.perThreeHour[i + 8].weather![0].icon}',
+          ),
           DayForecastDayItem(
-              size: size,
-              label: '${kState.perThreeHour[i + 16].dtTxt}',
-              value: '${kelvinToCelcius(kState.perThreeHour[34].main!.temp)}'),
+            size: size,
+            label: '${kState.perThreeHour[i + 16].dtTxt}',
+            value: '${kelvinToCelcius(kState.perThreeHour[34].main!.temp)}',
+            iconId: '${kState.perThreeHour[i + 16].weather![0].icon}',
+          ),
           KonstElevatedButton(
             size: size,
             label: '5 Days Forecast',
@@ -84,11 +90,13 @@ class DayForecastDayItem extends StatelessWidget {
     required this.size,
     required this.label,
     required this.value,
+    required this.iconId,
   });
 
   final Size size;
   final String label;
   final String value;
+  final String iconId;
 
   String stringToDate(String dt) {
     DateTime date = DateTime.parse(dt);
@@ -110,6 +118,20 @@ class DayForecastDayItem extends StatelessWidget {
     return ListTile(
       textColor: kWhite,
       iconColor: kWhite,
+      leading: Image.network(
+        'https://openweathermap.org/img/wn/${iconId}@2x.png',
+        width: 40,
+        height: 40,
+        loadingBuilder: (_, child, loadingProgress) {
+          return child;
+        },
+        errorBuilder: (_, error, stackTrace) {
+          return const Icon(
+            CupertinoIcons.cloud,
+            color: kWhite,
+          );
+        },
+      ),
       title: Text(
         stringToDate(label),
         style: TextStyle(

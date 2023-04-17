@@ -13,6 +13,21 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+String stringToDate(String dt) {
+  DateTime date = DateTime.parse(dt);
+  String formatedDate = DateFormat.yMMMMd('en_US').format(date);
+  if (date.day == DateTime.now().day) {
+    formatedDate = 'Today';
+  } else if (date.day == DateTime.now().add(const Duration(hours: 24)).day) {
+    formatedDate = 'Tommorrow';
+  } else {
+    String d = DateFormat.MMMEd('en_US').format(date);
+    d = d.split(' ').first.substring(0, 3);
+    formatedDate = d;
+  }
+  return formatedDate;
+}
+
 class ScreenDayForecast extends StatelessWidget {
   const ScreenDayForecast({
     super.key,
@@ -20,12 +35,14 @@ class ScreenDayForecast extends StatelessWidget {
     required this.lon,
     required this.kState,
     this.visibleAddBtn = false,
+    this.isdayPage = true,
   });
 
   final double lat;
   final double lon;
   final DayHourForecastState kState;
   final bool visibleAddBtn;
+  final bool isdayPage;
 
   @override
   Widget build(BuildContext context) {
@@ -52,52 +69,61 @@ class ScreenDayForecast extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: const Text(
-          '5 Day Forecast',
-          style: TextStyle(
+        title: Text(
+          isdayPage ? '5 Day Forecast' : '120 Hours Forecast',
+          style: const TextStyle(
             color: kWhite,
             fontWeight: FontWeight.w600,
           ),
         ),
       ),
-      body: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          final data = _list[index];
+      body: isdayPage
+          ? ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final data = _list[index];
 
-          String stringToDate(String dt) {
-            DateTime date = DateTime.parse(dt);
-            String formatedDate = DateFormat.yMMMMd('en_US').format(date);
-            if (date.day == DateTime.now().day) {
-              formatedDate = 'Today';
-            } else if (date.day ==
-                DateTime.now().add(const Duration(hours: 24)).day) {
-              formatedDate = 'Tommorrow';
-            } else {
-              String d = DateFormat.MMMEd('en_US').format(date);
-              d = d.split(' ').first.substring(0, 3);
-              formatedDate = d;
-            }
-            return formatedDate;
-          }
+                return DayForeCastItem(
+                  day: stringToDate(data.dtTxt!),
+                  date:
+                      '${DateTime.parse(data.dtTxt!).day}/${DateTime.parse(data.dtTxt!).month}',
+                  minTemp: kelvinToCelcius(data.main!.tempMin),
+                  maxTemp: kelvinToCelcius(data.main!.tempMax),
+                  windSpeed: data.wind!.speed ?? 0,
+                  iconId: data.weather![0].icon ?? '01d',
+                  kPadding: 10,
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const VerticalDivider(
+                  thickness: .1,
+                );
+              },
+              itemCount: 5,
+            )
+          : ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final data = kState.perThreeHour[index];
 
-          return DayForeCastItem(
-            day: stringToDate(data.dtTxt!),
-            date:
-                '${DateTime.parse(data.dtTxt!).day}/${DateTime.parse(data.dtTxt!).month}',
-            minTemp: kelvinToCelcius(data.main!.tempMin),
-            maxTemp: kelvinToCelcius(data.main!.tempMax),
-            windSpeed: data.wind!.speed ?? 0,
-            iconId: data.weather![0].icon ?? '01d',
-          );
-        },
-        separatorBuilder: (context, index) {
-          return const VerticalDivider(
-            thickness: .1,
-          );
-        },
-        itemCount: 5,
-      ),
+                return DayForeCastItem(
+                  day:
+                      '${DateTime.parse(data.dtTxt!).day}/${DateTime.parse(data.dtTxt!).month}',
+                  date: '${data.dtTxt!.split(' ').last.substring(0, 5)}',
+                  minTemp: kelvinToCelcius(data.main!.tempMin),
+                  maxTemp: kelvinToCelcius(data.main!.tempMax),
+                  windSpeed: data.wind!.speed ?? 0,
+                  iconId: data.weather![0].icon ?? '01d',
+                  kPadding: 10,
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const VerticalDivider(
+                  thickness: .1,
+                );
+              },
+              itemCount: kState.perThreeHour.length,
+            ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Visibility(
         visible: visibleAddBtn,
@@ -119,6 +145,9 @@ class DayForeCastItem extends StatelessWidget {
     required this.maxTemp,
     required this.windSpeed,
     required this.iconId,
+    required this.kPadding,
+    this.greenClr = Colors.green,
+    this.redClr = Colors.red,
   });
 
   final String day;
@@ -127,11 +156,14 @@ class DayForeCastItem extends StatelessWidget {
   final int maxTemp;
   final double windSpeed;
   final String iconId;
+  final double kPadding;
+  final Color greenClr;
+  final Color redClr;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(kPadding),
       child: Column(
         children: [
           SizedBox(
@@ -148,7 +180,7 @@ class DayForeCastItem extends StatelessWidget {
             ),
           ),
           Text(
-            date,
+            date == '00:00' ? '24:00' : date,
             style: TextStyle(
               color: kWhite.withOpacity(.8),
             ),
@@ -178,8 +210,8 @@ class DayForeCastItem extends StatelessWidget {
                   top: minTemp - 15,
                   child: Text(
                     '$minTemp°',
-                    style: const TextStyle(
-                      color: Colors.green,
+                    style: TextStyle(
+                      color: greenClr,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -188,8 +220,8 @@ class DayForeCastItem extends StatelessWidget {
                   top: maxTemp + 15,
                   child: Text(
                     '$maxTemp°',
-                    style: const TextStyle(
-                      color: Colors.red,
+                    style: TextStyle(
+                      color: redClr,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

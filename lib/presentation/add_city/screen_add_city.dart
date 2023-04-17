@@ -73,13 +73,13 @@ class ScreenAddCity extends StatelessWidget {
                 } else if (state.isError) {
                   return const Center(
                       child: Text(
-                    'Error',
+                    'No result!',
                     style: TextStyle(color: Colors.white),
                   ));
                 } else if (state.addedCities.isEmpty) {
                   return const Center(
                       child: Text(
-                    'List is empty',
+                    'No Data',
                     style: TextStyle(color: Colors.white),
                   ));
                 }

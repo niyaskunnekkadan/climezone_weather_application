@@ -2,8 +2,13 @@ import 'dart:ui';
 import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart';
 import 'package:clime_zone/application/home/home_bloc.dart';
 import 'package:clime_zone/core/color.dart';
+import 'package:clime_zone/core/sizes.dart';
+import 'package:clime_zone/core/url.dart';
+import 'package:clime_zone/domain/home/models/day_hour_forecast_model/list.dart';
+import 'package:clime_zone/presentation/day_forecast/screen_day_forecast.dart';
 import 'package:clime_zone/presentation/home/widgets/credit_text.dart';
 import 'package:clime_zone/presentation/home/widgets/day_forecast_widget.dart';
+import 'package:clime_zone/presentation/home/widgets/day_hour_forecast_widget.dart';
 import 'package:clime_zone/presentation/home/widgets/details_card.dart';
 import 'package:clime_zone/presentation/home/widgets/konst_appbar.dart';
 import 'package:clime_zone/presentation/home/widgets/konst_location_btn.dart';
@@ -84,14 +89,27 @@ class ScreenHome extends StatelessWidget {
                               return loadingIndictor;
                             }
                             if (state.perThreeHour.isEmpty) {
-                              return Container(
-                                color: Colors.yellow,
-                                height: 20,
-                                width: 30,
+                              return const Center(
+                                child: Text('Data Empty'),
                               );
                             }
-                            return DayForecastWidget(
-                                size: size, kState: state, lat: lat, lon: lon);
+                            return Column(
+                              children: [
+                                DayForecastWidget(
+                                  size: size,
+                                  kState: state,
+                                  lat: lat,
+                                  lon: lon,
+                                ),
+                                height20,
+                                DayHourWidget(
+                                  size: size,
+                                  lat: lat,
+                                  lon: lon,
+                                  kState: state,
+                                )
+                              ],
+                            );
                           },
                         ),
                         DetailsCard(size: size, kState: state),
