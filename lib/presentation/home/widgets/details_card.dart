@@ -19,8 +19,6 @@ class DetailsCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
-        width: size.width * .45,
-        height: size.height * .176,
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(.2),
           borderRadius: BorderRadius.circular(20),

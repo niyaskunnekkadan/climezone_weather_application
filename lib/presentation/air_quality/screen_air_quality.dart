@@ -70,6 +70,9 @@ class ScreenAirQuality extends StatelessWidget {
     return Scaffold(
       backgroundColor: kBlack,
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white70,
+        ),
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: const Text(

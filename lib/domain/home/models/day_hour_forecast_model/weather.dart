@@ -7,6 +7,7 @@ class Weather {
   int? id;
   String? main;
   String? description;
+  @JsonKey(name: 'icon')
   String? icon;
 
   Weather({this.id, this.main, this.description, this.icon});

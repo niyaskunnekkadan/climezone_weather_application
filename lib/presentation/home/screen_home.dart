@@ -57,6 +57,9 @@ class ScreenHome extends StatelessWidget {
               context
                   .read<HomeBloc>()
                   .add(HomeEvent.mainCard(lat: lat, lon: lon));
+              context
+                  .read<DayHourForecastBloc>()
+                  .add(DayHourForecastEvent.init(lat: lat, lon: lon));
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -87,7 +90,8 @@ class ScreenHome extends StatelessWidget {
                                 width: 30,
                               );
                             }
-                            return DayForecastWidget(size: size, kState: state);
+                            return DayForecastWidget(
+                                size: size, kState: state, lat: lat, lon: lon);
                           },
                         ),
                         DetailsCard(size: size, kState: state),

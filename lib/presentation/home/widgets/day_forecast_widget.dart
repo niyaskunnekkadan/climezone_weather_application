@@ -1,6 +1,7 @@
 import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/url.dart';
+import 'package:clime_zone/presentation/day_forecast/screen_day_forecast.dart';
 import 'package:clime_zone/presentation/home/widgets/konst_location_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +12,19 @@ class DayForecastWidget extends StatelessWidget {
     super.key,
     required this.size,
     required this.kState,
+    required this.lat,
+    required this.lon,
   });
 
   final Size size;
   final DayHourForecastState kState;
+  final double lat;
+  final double lon;
 
   @override
   Widget build(BuildContext context) {
     int i = 0;
     return Container(
-      //height: size.height * .2,
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(.2),
         borderRadius: BorderRadius.circular(20),
@@ -59,7 +63,14 @@ class DayForecastWidget extends StatelessWidget {
             label: '5 Days Forecast',
             icon: CupertinoIcons.cloud,
             color: kBlack,
-            onClick: () {},
+            onClick: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ScreenDayForecast(lat: lat, lon: lon, kState: kState),
+                  ));
+            },
           ),
         ],
       ),
