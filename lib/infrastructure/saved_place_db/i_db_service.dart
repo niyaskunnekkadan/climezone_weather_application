@@ -20,6 +20,12 @@ class IDBService {
     await db.add(model);
   }
 
+  Future<void> removePlace(int id) async {
+    final db = await Hive.openBox<SavedPlaceModel>(dBName);
+
+    await db.deleteAt(id);
+  }
+
   Future<List<SavedPlaceModel>> refreshUi() async {
     final db = await Hive.openBox<SavedPlaceModel>(dBName);
     List<SavedPlaceModel> model = [];

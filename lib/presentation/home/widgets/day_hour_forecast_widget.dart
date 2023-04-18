@@ -12,19 +12,18 @@ import 'package:flutter/material.dart';
 class DayHourWidget extends StatelessWidget {
   const DayHourWidget({
     super.key,
-    required this.size,
     required this.lat,
     required this.lon,
-    required this.kState,
+    required this.perThreeHours,
   });
 
-  final Size size;
   final double lat;
   final double lon;
-  final DayHourForecastState kState;
+  final List<MainList> perThreeHours;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(.2),
@@ -44,7 +43,21 @@ class DayHourWidget extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const Icon(Icons.calendar_month),
+              Image.network(
+                iconUrl.replaceFirst(
+                    '{icon}', perThreeHours[0].weather![0].icon ?? '01d'),
+                width: 40,
+                height: 40,
+                loadingBuilder: (_, child, loadingProgress) {
+                  return child;
+                },
+                errorBuilder: (_, error, stackTrace) {
+                  return const Icon(
+                    CupertinoIcons.cloud,
+                    color: kWhite,
+                  );
+                },
+              ),
             ],
           ),
           SingleChildScrollView(
@@ -53,7 +66,7 @@ class DayHourWidget extends StatelessWidget {
               children: List.generate(
                 16,
                 (index) {
-                  MainList data = kState.perThreeHour[index];
+                  MainList data = perThreeHours[index];
 
                   return DayForeCastItem(
                     day:
@@ -85,7 +98,6 @@ class DayHourWidget extends StatelessWidget {
                       key: const Key('direct_navigation_hourspage'),
                       lat: lat,
                       lon: lon,
-                      kState: kState,
                       isdayPage: false,
                     ),
                   ));

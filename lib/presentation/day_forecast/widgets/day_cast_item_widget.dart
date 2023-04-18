@@ -75,7 +75,7 @@ class DayForeCastItem extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 Positioned(
-                  top: minTemp - 15,
+                  top: 15,
                   child: Text(
                     '$minTemp°',
                     style: TextStyle(
@@ -85,7 +85,7 @@ class DayForeCastItem extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: maxTemp + 15,
+                  bottom: 15,
                   child: Text(
                     '$maxTemp°',
                     style: TextStyle(

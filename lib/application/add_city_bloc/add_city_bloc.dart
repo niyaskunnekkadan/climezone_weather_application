@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:clime_zone/domain/add_city/add_city_service.dart';
 import 'package:clime_zone/domain/add_city/model/search_city_model/search_city_model.dart';
 import 'package:clime_zone/domain/core/failure/main_failure.dart';
+import 'package:clime_zone/domain/saved_places/saved_place_model.dart';
 import 'package:clime_zone/infrastructure/saved_place_db/i_db_service.dart';
 import 'package:clime_zone/presentation/add_city/screen_add_city.dart';
 import 'package:clime_zone/presentation/add_city/widgets/added_cities_widget.dart';
@@ -21,17 +22,14 @@ class AddCityBloc extends Bloc<AddCityEvent, AddCityState> {
     on<Initial>((event, emit) async {
       emit(state.copyWith(isLoading: true));
       final modelList = await IDBService().refreshUi();
-      final list = modelList.map((e) {
-        return AddedCityItem(
-          name: e.id.toString(),
-          lat: e.latitude,
-          lon: e.longitude,
-        );
-      }).toList();
+
       emit(
         state.copyWith(
           isLoading: false,
-          addedCities: list,
+          addedCities: modelList,
+          searchingCities: [],
+          isError: false,
+          isDelete: false,
         ),
       );
     });
@@ -51,6 +49,7 @@ class AddCityBloc extends Bloc<AddCityEvent, AddCityState> {
             addedCities: state.addedCities,
             isLoading: false,
             isError: false,
+            isDelete: false,
           ),
         );
       } else {
@@ -63,6 +62,7 @@ class AddCityBloc extends Bloc<AddCityEvent, AddCityState> {
                 addedCities: state.addedCities,
                 isLoading: false,
                 isError: true,
+                isDelete: false,
               ),
             );
           },
@@ -72,10 +72,30 @@ class AddCityBloc extends Bloc<AddCityEvent, AddCityState> {
               searchingCities: success,
               isLoading: false,
               isError: false,
+              isDelete: false,
             ),
           ),
         );
       }
+    });
+
+    /**
+     * 
+     * delete event
+     * 
+     */
+
+    on<Delete>((event, emit) async {
+      final modelList = await IDBService().refreshUi();
+
+      emit(
+        state.copyWith(
+          isLoading: false,
+          addedCities: modelList,
+          searchingCities: [],
+          isDelete: true,
+        ),
+      );
     });
   }
 }

@@ -9,8 +9,14 @@ class SavedPlaceModel {
   final double latitude;
   @HiveField(2)
   final double longitude;
+  @HiveField(3)
+  final String name;
 
-  SavedPlaceModel(this.id, {required this.latitude, required this.longitude});
+  SavedPlaceModel(
+      {required this.id,
+      required this.latitude,
+      required this.longitude,
+      required this.name});
 
   @override
   String toString() {

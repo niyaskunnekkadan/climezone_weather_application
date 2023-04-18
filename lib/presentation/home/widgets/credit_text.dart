@@ -6,13 +6,11 @@ import 'package:url_launcher/url_launcher.dart';
 class CreditText extends StatelessWidget {
   const CreditText({
     super.key,
-    required this.size,
   });
-
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(

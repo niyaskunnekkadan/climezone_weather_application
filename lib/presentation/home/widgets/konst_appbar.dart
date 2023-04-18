@@ -33,7 +33,7 @@ class KonstAppBar extends StatelessWidget {
         child: KonstAppBarButton(
           onClick: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const ScreenAddCity(),
+              builder: (context) => ScreenAddCity(),
             ));
           },
           size: size,

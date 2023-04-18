@@ -13,10 +13,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ScreenHome extends StatelessWidget {
   const ScreenHome({
     super.key,
-    this.value,
+    required this.value,
   });
 
-  final int? value;
+  final int value;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +31,14 @@ class ScreenHome extends StatelessWidget {
       // screen rebuilding the list of item (based of shared value)
       context.read<HomeBloc>().add(
             HomeEvent.mainCard(
-              lat: model![value ?? 0].latitude,
-              lon: model![value ?? 0].longitude,
+              lat: model![value].latitude,
+              lon: model![value].longitude,
             ),
           );
       context.read<DayHourForecastBloc>().add(
             DayHourForecastEvent.init(
-              lat: model![value ?? 0].latitude,
-              lon: model![value ?? 0].longitude,
+              lat: model![value].latitude,
+              lon: model![value].longitude,
             ),
           );
     });
@@ -76,8 +76,8 @@ class ScreenHome extends StatelessWidget {
 
                   // listOfPlaces has value
                   : ScreenHomeWidget(
-                      lat: state.listOfPlaces[value ?? 0].latitude,
-                      lon: state.listOfPlaces[value ?? 0].longitude,
+                      lat: state.listOfPlaces[value].latitude,
+                      lon: state.listOfPlaces[value].longitude,
                     );
             }
           },

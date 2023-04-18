@@ -56,9 +56,10 @@ class ScreenSplash extends StatelessWidget {
           // getting location success case
           // create location model
           final data = SavedPlaceModel(
-            DateTime.now().millisecondsSinceEpoch,
+            id: DateTime.now().millisecondsSinceEpoch,
             latitude: success.latitude,
             longitude: success.longitude,
+            name: 'Your location',
           );
           // add location in db
           await IDBService().addPlace(data);
@@ -67,7 +68,9 @@ class ScreenSplash extends StatelessWidget {
           // goto home screen and kill previous route
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                builder: (context) => const ScreenHome(),
+                builder: (context) => const ScreenHome(
+                  value: 0,
+                ),
               ),
               (route) => false);
         },
@@ -76,7 +79,9 @@ class ScreenSplash extends StatelessWidget {
       // goto home screen and kill previous route
       await Future.delayed(const Duration(milliseconds: 1400));
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const ScreenHome(),
+        builder: (context) => const ScreenHome(
+          value: 0,
+        ),
       ));
     }
   }

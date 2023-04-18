@@ -1,6 +1,7 @@
 import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/url.dart';
+import 'package:clime_zone/domain/home/models/day_hour_forecast_model/list.dart';
 import 'package:clime_zone/presentation/day_forecast/screen_day_forecast.dart';
 import 'package:clime_zone/presentation/home/widgets/konst_location_btn.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,19 +11,18 @@ import 'package:intl/intl.dart';
 class DayForecastWidget extends StatelessWidget {
   const DayForecastWidget({
     super.key,
-    required this.size,
-    required this.kState,
     required this.lat,
     required this.lon,
+    required this.threeHourForecsat,
   });
 
-  final Size size;
-  final DayHourForecastState kState;
+  final List<MainList> threeHourForecsat;
   final double lat;
   final double lon;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     int i = 0;
     return Container(
       decoration: BoxDecoration(
@@ -43,26 +43,40 @@ class DayForecastWidget extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const Icon(Icons.cloud),
+              Image.network(
+                iconUrl.replaceFirst(
+                    '{icon}', '${threeHourForecsat[i].weather![0].icon}'),
+                width: 40,
+                height: 40,
+                loadingBuilder: (_, child, loadingProgress) {
+                  return child;
+                },
+                errorBuilder: (_, error, stackTrace) {
+                  return const Icon(
+                    CupertinoIcons.cloud,
+                    color: kWhite,
+                  );
+                },
+              ),
             ],
           ),
           DayForecastDayItem(
             size: size,
-            label: '${kState.perThreeHour[i].dtTxt}',
-            value: '${kelvinToCelcius(kState.perThreeHour[1].main!.temp)}',
-            iconId: '${kState.perThreeHour[i].weather![0].icon}',
+            label: '${threeHourForecsat[i].dtTxt}',
+            value: '${kelvinToCelcius(threeHourForecsat[0].main!.temp)}',
+            iconId: '${threeHourForecsat[i].weather![0].icon}',
           ),
           DayForecastDayItem(
             size: size,
-            label: '${kState.perThreeHour[i + 8].dtTxt}',
-            value: '${kelvinToCelcius(kState.perThreeHour[18].main!.temp)}',
-            iconId: '${kState.perThreeHour[i + 8].weather![0].icon}',
+            label: '${threeHourForecsat[i + 8].dtTxt}',
+            value: '${kelvinToCelcius(threeHourForecsat[17].main!.temp)}',
+            iconId: '${threeHourForecsat[i + 17].weather![0].icon}',
           ),
           DayForecastDayItem(
             size: size,
-            label: '${kState.perThreeHour[i + 16].dtTxt}',
-            value: '${kelvinToCelcius(kState.perThreeHour[34].main!.temp)}',
-            iconId: '${kState.perThreeHour[i + 16].weather![0].icon}',
+            label: '${threeHourForecsat[i + 16].dtTxt}',
+            value: '${kelvinToCelcius(threeHourForecsat[33].main!.temp)}',
+            iconId: '${threeHourForecsat[i + 33].weather![0].icon}',
           ),
           KonstElevatedButton(
             size: size,
@@ -73,11 +87,7 @@ class DayForecastWidget extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ScreenDayForecast(
-                        key: Key('direct_navigation_daypage'),
-                        lat: lat,
-                        lon: lon,
-                        kState: kState),
+                    builder: (context) => ScreenDayForecast(lat: lat, lon: lon),
                   ));
             },
           ),

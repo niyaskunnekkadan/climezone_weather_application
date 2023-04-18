@@ -19,18 +19,21 @@ mixin _$AddCityEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() delete,
     required TResult Function(String place) searching,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? delete,
     TResult? Function(String place)? searching,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? delete,
     TResult Function(String place)? searching,
     required TResult orElse(),
   }) =>
@@ -38,18 +41,21 @@ mixin _$AddCityEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
+    required TResult Function(Delete value) delete,
     required TResult Function(Searching value) searching,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
+    TResult? Function(Delete value)? delete,
     TResult? Function(Searching value)? searching,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
+    TResult Function(Delete value)? delete,
     TResult Function(Searching value)? searching,
     required TResult orElse(),
   }) =>
@@ -111,6 +117,7 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() delete,
     required TResult Function(String place) searching,
   }) {
     return initial();
@@ -120,6 +127,7 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? delete,
     TResult? Function(String place)? searching,
   }) {
     return initial?.call();
@@ -129,6 +137,7 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? delete,
     TResult Function(String place)? searching,
     required TResult orElse(),
   }) {
@@ -142,6 +151,7 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
+    required TResult Function(Delete value) delete,
     required TResult Function(Searching value) searching,
   }) {
     return initial(this);
@@ -151,6 +161,7 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
+    TResult? Function(Delete value)? delete,
     TResult? Function(Searching value)? searching,
   }) {
     return initial?.call(this);
@@ -160,6 +171,7 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
+    TResult Function(Delete value)? delete,
     TResult Function(Searching value)? searching,
     required TResult orElse(),
   }) {
@@ -172,6 +184,112 @@ class _$Initial implements Initial {
 
 abstract class Initial implements AddCityEvent {
   const factory Initial() = _$Initial;
+}
+
+/// @nodoc
+abstract class _$$DeleteCopyWith<$Res> {
+  factory _$$DeleteCopyWith(_$Delete value, $Res Function(_$Delete) then) =
+      __$$DeleteCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DeleteCopyWithImpl<$Res>
+    extends _$AddCityEventCopyWithImpl<$Res, _$Delete>
+    implements _$$DeleteCopyWith<$Res> {
+  __$$DeleteCopyWithImpl(_$Delete _value, $Res Function(_$Delete) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$Delete implements Delete {
+  const _$Delete();
+
+  @override
+  String toString() {
+    return 'AddCityEvent.delete()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$Delete);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() delete,
+    required TResult Function(String place) searching,
+  }) {
+    return delete();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? delete,
+    TResult? Function(String place)? searching,
+  }) {
+    return delete?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? delete,
+    TResult Function(String place)? searching,
+    required TResult orElse(),
+  }) {
+    if (delete != null) {
+      return delete();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initial value) initial,
+    required TResult Function(Delete value) delete,
+    required TResult Function(Searching value) searching,
+  }) {
+    return delete(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initial value)? initial,
+    TResult? Function(Delete value)? delete,
+    TResult? Function(Searching value)? searching,
+  }) {
+    return delete?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(Delete value)? delete,
+    TResult Function(Searching value)? searching,
+    required TResult orElse(),
+  }) {
+    if (delete != null) {
+      return delete(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Delete implements AddCityEvent {
+  const factory Delete() = _$Delete;
 }
 
 /// @nodoc
@@ -239,6 +357,7 @@ class _$Searching implements Searching {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() delete,
     required TResult Function(String place) searching,
   }) {
     return searching(place);
@@ -248,6 +367,7 @@ class _$Searching implements Searching {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? delete,
     TResult? Function(String place)? searching,
   }) {
     return searching?.call(place);
@@ -257,6 +377,7 @@ class _$Searching implements Searching {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? delete,
     TResult Function(String place)? searching,
     required TResult orElse(),
   }) {
@@ -270,6 +391,7 @@ class _$Searching implements Searching {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
+    required TResult Function(Delete value) delete,
     required TResult Function(Searching value) searching,
   }) {
     return searching(this);
@@ -279,6 +401,7 @@ class _$Searching implements Searching {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Initial value)? initial,
+    TResult? Function(Delete value)? delete,
     TResult? Function(Searching value)? searching,
   }) {
     return searching?.call(this);
@@ -288,6 +411,7 @@ class _$Searching implements Searching {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
+    TResult Function(Delete value)? delete,
     TResult Function(Searching value)? searching,
     required TResult orElse(),
   }) {
@@ -309,11 +433,12 @@ abstract class Searching implements AddCityEvent {
 
 /// @nodoc
 mixin _$AddCityState {
-  List<AddedCityItem> get addedCities => throw _privateConstructorUsedError;
+  List<SavedPlaceModel> get addedCities => throw _privateConstructorUsedError;
   List<SearchCityModel> get searchingCities =>
       throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
+  bool get isDelete => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddCityStateCopyWith<AddCityState> get copyWith =>
@@ -327,10 +452,11 @@ abstract class $AddCityStateCopyWith<$Res> {
       _$AddCityStateCopyWithImpl<$Res, AddCityState>;
   @useResult
   $Res call(
-      {List<AddedCityItem> addedCities,
+      {List<SavedPlaceModel> addedCities,
       List<SearchCityModel> searchingCities,
       bool isLoading,
-      bool isError});
+      bool isError,
+      bool isDelete});
 }
 
 /// @nodoc
@@ -350,12 +476,13 @@ class _$AddCityStateCopyWithImpl<$Res, $Val extends AddCityState>
     Object? searchingCities = null,
     Object? isLoading = null,
     Object? isError = null,
+    Object? isDelete = null,
   }) {
     return _then(_value.copyWith(
       addedCities: null == addedCities
           ? _value.addedCities
           : addedCities // ignore: cast_nullable_to_non_nullable
-              as List<AddedCityItem>,
+              as List<SavedPlaceModel>,
       searchingCities: null == searchingCities
           ? _value.searchingCities
           : searchingCities // ignore: cast_nullable_to_non_nullable
@@ -367,6 +494,10 @@ class _$AddCityStateCopyWithImpl<$Res, $Val extends AddCityState>
       isError: null == isError
           ? _value.isError
           : isError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isDelete: null == isDelete
+          ? _value.isDelete
+          : isDelete // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -381,10 +512,11 @@ abstract class _$$_AddCityStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<AddedCityItem> addedCities,
+      {List<SavedPlaceModel> addedCities,
       List<SearchCityModel> searchingCities,
       bool isLoading,
-      bool isError});
+      bool isError,
+      bool isDelete});
 }
 
 /// @nodoc
@@ -402,12 +534,13 @@ class __$$_AddCityStateCopyWithImpl<$Res>
     Object? searchingCities = null,
     Object? isLoading = null,
     Object? isError = null,
+    Object? isDelete = null,
   }) {
     return _then(_$_AddCityState(
       addedCities: null == addedCities
           ? _value._addedCities
           : addedCities // ignore: cast_nullable_to_non_nullable
-              as List<AddedCityItem>,
+              as List<SavedPlaceModel>,
       searchingCities: null == searchingCities
           ? _value._searchingCities
           : searchingCities // ignore: cast_nullable_to_non_nullable
@@ -420,6 +553,10 @@ class __$$_AddCityStateCopyWithImpl<$Res>
           ? _value.isError
           : isError // ignore: cast_nullable_to_non_nullable
               as bool,
+      isDelete: null == isDelete
+          ? _value.isDelete
+          : isDelete // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -428,16 +565,17 @@ class __$$_AddCityStateCopyWithImpl<$Res>
 
 class _$_AddCityState implements _AddCityState {
   const _$_AddCityState(
-      {required final List<AddedCityItem> addedCities,
+      {required final List<SavedPlaceModel> addedCities,
       required final List<SearchCityModel> searchingCities,
       required this.isLoading,
-      required this.isError})
+      required this.isError,
+      required this.isDelete})
       : _addedCities = addedCities,
         _searchingCities = searchingCities;
 
-  final List<AddedCityItem> _addedCities;
+  final List<SavedPlaceModel> _addedCities;
   @override
-  List<AddedCityItem> get addedCities {
+  List<SavedPlaceModel> get addedCities {
     if (_addedCities is EqualUnmodifiableListView) return _addedCities;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_addedCities);
@@ -455,10 +593,12 @@ class _$_AddCityState implements _AddCityState {
   final bool isLoading;
   @override
   final bool isError;
+  @override
+  final bool isDelete;
 
   @override
   String toString() {
-    return 'AddCityState(addedCities: $addedCities, searchingCities: $searchingCities, isLoading: $isLoading, isError: $isError)';
+    return 'AddCityState(addedCities: $addedCities, searchingCities: $searchingCities, isLoading: $isLoading, isError: $isError, isDelete: $isDelete)';
   }
 
   @override
@@ -472,7 +612,9 @@ class _$_AddCityState implements _AddCityState {
                 .equals(other._searchingCities, _searchingCities) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
-            (identical(other.isError, isError) || other.isError == isError));
+            (identical(other.isError, isError) || other.isError == isError) &&
+            (identical(other.isDelete, isDelete) ||
+                other.isDelete == isDelete));
   }
 
   @override
@@ -481,7 +623,8 @@ class _$_AddCityState implements _AddCityState {
       const DeepCollectionEquality().hash(_addedCities),
       const DeepCollectionEquality().hash(_searchingCities),
       isLoading,
-      isError);
+      isError,
+      isDelete);
 
   @JsonKey(ignore: true)
   @override
@@ -492,19 +635,22 @@ class _$_AddCityState implements _AddCityState {
 
 abstract class _AddCityState implements AddCityState {
   const factory _AddCityState(
-      {required final List<AddedCityItem> addedCities,
+      {required final List<SavedPlaceModel> addedCities,
       required final List<SearchCityModel> searchingCities,
       required final bool isLoading,
-      required final bool isError}) = _$_AddCityState;
+      required final bool isError,
+      required final bool isDelete}) = _$_AddCityState;
 
   @override
-  List<AddedCityItem> get addedCities;
+  List<SavedPlaceModel> get addedCities;
   @override
   List<SearchCityModel> get searchingCities;
   @override
   bool get isLoading;
   @override
   bool get isError;
+  @override
+  bool get isDelete;
   @override
   @JsonKey(ignore: true)
   _$$_AddCityStateCopyWith<_$_AddCityState> get copyWith =>

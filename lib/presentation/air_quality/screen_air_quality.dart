@@ -129,7 +129,7 @@ class ScreenAirQuality extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  statusText,
+                  "In ${state.data!.name!}. $statusText",
                   style: TextStyle(
                     color: kWhite.withOpacity(.7),
                     fontSize: 18,

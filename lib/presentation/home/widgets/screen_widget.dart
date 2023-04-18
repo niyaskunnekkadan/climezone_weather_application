@@ -1,6 +1,5 @@
 import 'package:clime_zone/application/bloc/home_bloc_bloc.dart';
 import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart';
-import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/methods.dart';
 import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/presentation/home/widgets/credit_text.dart';
@@ -9,7 +8,6 @@ import 'package:clime_zone/presentation/home/widgets/day_hour_forecast_widget.da
 import 'package:clime_zone/presentation/home/widgets/details_card.dart';
 import 'package:clime_zone/presentation/home/widgets/konst_appbar.dart';
 import 'package:clime_zone/presentation/home/widgets/main_weather_card.dart';
-import 'package:clime_zone/presentation/home/widgets/sun_time_card.dart';
 import 'package:clime_zone/presentation/widgets/error_widget.dart';
 import 'package:clime_zone/presentation/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -83,30 +81,27 @@ class ScreenHomeWidget extends StatelessWidget {
                         return Column(
                           children: [
                             DayForecastWidget(
-                              size: size,
-                              kState: state,
+                              threeHourForecsat: state.perThreeHour,
                               lat: lat,
                               lon: lon,
                             ),
                             height20,
                             DayHourWidget(
-                              size: size,
                               lat: lat,
                               lon: lon,
-                              kState: state,
+                              perThreeHours: state.perThreeHour,
                             )
                           ],
                         );
                       },
                     ),
                     DetailsCard(
-                      size: size,
                       humidity: state.data!.main!.humidity ?? 0,
                       feelsLike: kelvinToCelcius(state.data!.main!.feelsLike),
                       windSpeed: state.data!.wind!.speed ?? 0,
                       pressure: state.data!.main!.pressure ?? 0,
                     ),
-                    CreditText(size: size),
+                    CreditText(),
                   ],
                 );
               }

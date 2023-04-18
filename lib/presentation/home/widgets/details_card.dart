@@ -7,14 +7,12 @@ import 'package:flutter/material.dart';
 class DetailsCard extends StatelessWidget {
   const DetailsCard({
     super.key,
-    required this.size,
     required this.humidity,
     required this.feelsLike,
     required this.windSpeed,
     required this.pressure,
   });
 
-  final Size size;
   final int humidity;
   final int feelsLike;
   final double windSpeed;
@@ -22,6 +20,7 @@ class DetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(

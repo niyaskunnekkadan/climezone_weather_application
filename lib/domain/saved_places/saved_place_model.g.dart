@@ -17,22 +17,25 @@ class SavedPlaceModelAdapter extends TypeAdapter<SavedPlaceModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return SavedPlaceModel(
-      fields[0] as int,
+      id: fields[0] as int,
       latitude: fields[1] as double,
       longitude: fields[2] as double,
+      name: fields[3] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, SavedPlaceModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.latitude)
       ..writeByte(2)
-      ..write(obj.longitude);
+      ..write(obj.longitude)
+      ..writeByte(3)
+      ..write(obj.name);
   }
 
   @override

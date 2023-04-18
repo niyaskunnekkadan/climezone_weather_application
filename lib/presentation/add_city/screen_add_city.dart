@@ -1,28 +1,32 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:clime_zone/application/add_city_bloc/add_city_bloc.dart';
+import 'package:clime_zone/application/bloc/home_bloc_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';
+import 'package:clime_zone/presentation/add_city/widgets/added_cities_widget.dart';
 import 'package:clime_zone/presentation/add_city/widgets/search_res_widget.dart';
 import 'package:clime_zone/presentation/widgets/tiny_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LatAndLon {
-  final double lat;
-  final double lon;
-
-  LatAndLon({required this.lat, required this.lon});
-}
-
 class ScreenAddCity extends StatelessWidget {
-  const ScreenAddCity({super.key});
-
+  ScreenAddCity({super.key});
+  double lat = 0;
+  double lon = 0;
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AddCityBloc>().add(const Initial());
+
+      context.read<HomeBloc>().add(
+            HomeEvent.mainCard(
+              lat: lat,
+              lon: lon,
+            ),
+          );
     });
 
     final _debouner = Debouncer(milliseconds: 850);
@@ -104,10 +108,47 @@ class ScreenAddCity extends StatelessWidget {
                           ),
                         ),
                       )
-                    : Expanded(
-                        child: ListView(
-                          children: state.addedCities.map((e) => e).toList(),
-                        ),
+                    : BlocBuilder<AddCityBloc, AddCityState>(
+                        builder: (context, state) {
+                          return Expanded(
+                            child: ListView(
+                              children: List.generate(
+                                state.addedCities.length,
+                                (index) {
+                                  final _item = state.addedCities[index];
+
+                                  lat = _item.latitude;
+                                  lon = _item.longitude;
+
+                                  String name;
+                                  if (index == 0) {
+                                    name = 'Your location';
+                                  } else {
+                                    name = _item.name;
+                                  }
+                                  final Kstate = state;
+                                  return BlocBuilder<HomeBloc, HomeState>(
+                                    builder: (context, state) {
+                                      return AddedCityItem(
+                                        name: name,
+                                        value: index,
+                                        aqiValue:
+                                            state.aqiList[0].main!.aqi ?? 0,
+                                        temp: kelvinToCelcius(
+                                            state.data!.main!.temp),
+                                        minTemp: kelvinToCelcius(
+                                            state.data!.main!.tempMin),
+                                        maxTemp: kelvinToCelcius(
+                                            state.data!.main!.tempMax),
+                                        isDel: Kstate.isDelete,
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        },
                       );
               },
             ),
