@@ -1,20 +1,30 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:clime_zone/domain/core/failure/main_failure.dart';
 import 'package:clime_zone/domain/home/home_service.dart';
 import 'package:clime_zone/domain/home/models/aqi_model/aq_index_model/list.dart';
 import 'package:clime_zone/domain/home/models/main_weather_model/main_weather_model.dart';
+import 'package:clime_zone/domain/saved_places/saved_place_model.dart';
+import 'package:clime_zone/infrastructure/saved_place_db/i_db_service.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-part 'home_event.dart';
-part 'home_state.dart';
-part 'home_bloc.freezed.dart';
+part 'home_bloc_event.dart';
+part 'home_bloc_state.dart';
+part 'home_bloc_bloc.freezed.dart';
 
 @injectable
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeService homeService;
   HomeBloc(this.homeService) : super(HomeState.initial()) {
+    on<_InitialLoadList>((event, emit) async {
+      emit(state.copyWith(
+        isLoading: false,
+        listOfPlaces: event.placeList,
+      ));
+    });
     on<MainCard>((event, emit) async {
       emit(state.copyWith(
         isLoading: true,
@@ -28,30 +38,30 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       mainData.fold(
         (failure) {
           if (failure == const MainFailure.clientFailure()) {
-            return emit(const HomeState(
+            return emit(HomeState(
+              listOfPlaces: state.listOfPlaces,
               aqiList: [],
               isLoading: false,
-              isClientError: true,
-              isServerError: false,
+              isError: true,
             ));
           } else {
             return emit(
-              const HomeState(
+              HomeState(
+                listOfPlaces: state.listOfPlaces,
                 aqiList: [],
                 isLoading: false,
-                isClientError: false,
-                isServerError: true,
+                isError: true,
               ),
             );
           }
         },
         (success) => emit(
           HomeState(
+            listOfPlaces: state.listOfPlaces,
             aqiList: [],
             data: success,
             isLoading: false,
-            isClientError: false,
-            isServerError: false,
+            isError: false,
           ),
         ),
       );
@@ -61,32 +71,32 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           if (failure == const MainFailure.clientFailure()) {
             return emit(
               HomeState(
+                listOfPlaces: state.listOfPlaces,
                 aqiList: [],
                 data: state.data,
                 isLoading: false,
-                isClientError: true,
-                isServerError: false,
+                isError: true,
               ),
             );
           } else {
             return emit(
               HomeState(
+                listOfPlaces: state.listOfPlaces,
                 aqiList: [],
                 data: state.data,
                 isLoading: false,
-                isClientError: false,
-                isServerError: true,
+                isError: true,
               ),
             );
           }
         },
         (success) => emit(
           HomeState(
+            listOfPlaces: state.listOfPlaces,
             aqiList: success.list ?? [],
             data: state.data,
             isLoading: false,
-            isClientError: false,
-            isServerError: false,
+            isError: false,
           ),
         ),
       );

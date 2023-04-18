@@ -10,9 +10,9 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:clime_zone/application/add_city_bloc/add_city_bloc.dart' as _i7;
+import 'package:clime_zone/application/bloc/home_bloc_bloc.dart' as _i9;
 import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart'
     as _i8;
-import 'package:clime_zone/application/home/home_bloc.dart' as _i9;
 import 'package:clime_zone/domain/add_city/add_city_service.dart' as _i3;
 import 'package:clime_zone/domain/home/home_service.dart' as _i5;
 import 'package:clime_zone/infrastructure/add_city/i_add_city.dart' as _i4;

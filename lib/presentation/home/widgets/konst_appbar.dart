@@ -1,4 +1,4 @@
-import 'package:clime_zone/application/home/home_bloc.dart';
+import 'package:clime_zone/application/bloc/home_bloc_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/url.dart';
 import 'package:clime_zone/infrastructure/add_city/i_add_city.dart';
@@ -33,7 +33,7 @@ class KonstAppBar extends StatelessWidget {
         child: KonstAppBarButton(
           onClick: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ScreenAddCity(),
+              builder: (context) => const ScreenAddCity(),
             ));
           },
           size: size,

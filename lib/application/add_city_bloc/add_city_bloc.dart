@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:clime_zone/domain/add_city/add_city_service.dart';
 import 'package:clime_zone/domain/add_city/model/search_city_model/search_city_model.dart';
 import 'package:clime_zone/domain/core/failure/main_failure.dart';
+import 'package:clime_zone/infrastructure/saved_place_db/i_db_service.dart';
 import 'package:clime_zone/presentation/add_city/screen_add_city.dart';
 import 'package:clime_zone/presentation/add_city/widgets/added_cities_widget.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -17,9 +18,16 @@ part 'add_city_bloc.freezed.dart';
 class AddCityBloc extends Bloc<AddCityEvent, AddCityState> {
   AddCityService addCityService;
   AddCityBloc(this.addCityService) : super(AddCityState.initial()) {
-    on<Initial>((event, emit) {
+    on<Initial>((event, emit) async {
       emit(state.copyWith(isLoading: true));
-      final list = List.generate(20, (index) => const AddedCityItem());
+      final modelList = await IDBService().refreshUi();
+      final list = modelList.map((e) {
+        return AddedCityItem(
+          name: e.id.toString(),
+          lat: e.latitude,
+          lon: e.longitude,
+        );
+      }).toList();
       emit(
         state.copyWith(
           isLoading: false,

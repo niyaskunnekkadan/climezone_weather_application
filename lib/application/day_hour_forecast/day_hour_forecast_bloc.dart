@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:clime_zone/domain/core/failure/main_failure.dart';
 import 'package:clime_zone/domain/home/home_service.dart';
@@ -23,16 +25,20 @@ class DayHourForecastBloc
           '${event.lat}', '${event.lon}');
 
       data.fold(
-        (MainFailure fail) => emit(state.copyWith(
-          isLoading: false,
-          hasError: true,
-        )),
-        (DayHourForecastModel success) => emit(DayHourForecastState(
-          perThreeHour: success.list ?? [],
-          city: success.city,
-          isLoading: false,
-          hasError: false,
-        )),
+        (MainFailure fail) {
+          return emit(state.copyWith(
+            isLoading: false,
+            hasError: true,
+          ));
+        },
+        (DayHourForecastModel success) {
+          return emit(state.copyWith(
+            isLoading: false,
+            hasError: false,
+            city: success.city,
+            perThreeHour: success.list ?? [],
+          ));
+        },
       );
     });
   }

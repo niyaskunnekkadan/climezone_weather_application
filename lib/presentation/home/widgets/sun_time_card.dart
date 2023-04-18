@@ -1,4 +1,4 @@
-import 'package:clime_zone/application/home/home_bloc.dart';
+import 'package:clime_zone/application/bloc/home_bloc_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';

@@ -4,6 +4,7 @@ import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';
 import 'package:clime_zone/domain/home/models/day_hour_forecast_model/list.dart';
 import 'package:clime_zone/presentation/day_forecast/screen_day_forecast.dart';
+import 'package:clime_zone/presentation/day_forecast/widgets/day_cast_item_widget.dart';
 import 'package:clime_zone/presentation/home/widgets/konst_location_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,6 @@ class DayHourWidget extends StatelessWidget {
               children: List.generate(
                 16,
                 (index) {
-                  print(index);
                   MainList data = kState.perThreeHour[index];
 
                   return DayForeCastItem(
@@ -82,6 +82,7 @@ class DayHourWidget extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ScreenDayForecast(
+                      key: const Key('direct_navigation_hourspage'),
                       lat: lat,
                       lon: lon,
                       kState: kState,

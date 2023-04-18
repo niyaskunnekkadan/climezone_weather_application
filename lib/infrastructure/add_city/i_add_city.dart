@@ -26,7 +26,6 @@ class IAddCity implements AddCityService {
 
     try {
       final response = await dio.get(url);
-      // log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final jsonn = jsonDecode(response.data);
         List<SearchCityModel> _list = [];

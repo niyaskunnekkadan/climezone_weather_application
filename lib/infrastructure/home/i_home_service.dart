@@ -46,13 +46,13 @@ class IHomeService implements HomeService {
 
     try {
       final response = await dio.get(url);
-
+      log('index  ${response.data}');
       if (response.statusCode == 200 || response.statusCode == 201) {
         return Right(AqIndexModel.fromJson(response.data));
       } else {
         return const Left(MainFailure.serverFailure());
       }
-    } on DioError catch (_) {
+    } on DioError catch (e) {
       return const Left(MainFailure.serverFailure());
     } catch (e) {
       return const Left(MainFailure.clientFailure());
@@ -71,12 +71,12 @@ class IHomeService implements HomeService {
       final response = await dio.get(url);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        log(DayHourForecastModel.fromJson(response.data).toString());
         return Right(DayHourForecastModel.fromJson(response.data));
       } else {
         return const Left(MainFailure.serverFailure());
       }
-    } on DioError catch (_) {
+    } on DioError catch (e) {
+      log(e.toString());
       return const Left(MainFailure.serverFailure());
     } catch (e) {
       return const Left(MainFailure.clientFailure());

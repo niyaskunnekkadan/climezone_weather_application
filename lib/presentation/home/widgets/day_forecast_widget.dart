@@ -73,8 +73,11 @@ class DayForecastWidget extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        ScreenDayForecast(lat: lat, lon: lon, kState: kState),
+                    builder: (context) => ScreenDayForecast(
+                        key: Key('direct_navigation_daypage'),
+                        lat: lat,
+                        lon: lon,
+                        kState: kState),
                   ));
             },
           ),
@@ -119,7 +122,7 @@ class DayForecastDayItem extends StatelessWidget {
       textColor: kWhite,
       iconColor: kWhite,
       leading: Image.network(
-        'https://openweathermap.org/img/wn/${iconId}@2x.png',
+        iconUrl.replaceFirst('{icon}', iconId),
         width: 40,
         height: 40,
         loadingBuilder: (_, child, loadingProgress) {

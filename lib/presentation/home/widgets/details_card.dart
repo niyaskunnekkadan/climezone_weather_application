@@ -1,4 +1,4 @@
-import 'package:clime_zone/application/home/home_bloc.dart';
+import 'package:clime_zone/application/bloc/home_bloc_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';
@@ -8,11 +8,17 @@ class DetailsCard extends StatelessWidget {
   const DetailsCard({
     super.key,
     required this.size,
-    required this.kState,
+    required this.humidity,
+    required this.feelsLike,
+    required this.windSpeed,
+    required this.pressure,
   });
 
   final Size size;
-  final HomeState kState;
+  final int humidity;
+  final int feelsLike;
+  final double windSpeed;
+  final int pressure;
 
   @override
   Widget build(BuildContext context) {
@@ -28,29 +34,13 @@ class DetailsCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             detailCardText(
-                size,
-                'Humidity',
-                kState.data == null
-                    ? nullValue
-                    : '${kState.data!.main!.humidity}%'),
+                size, 'Humidity', humidity == 0 ? nullValue : '$humidity%'),
             detailCardText(
-                size,
-                'Feels like',
-                kState.data == null
-                    ? nullValue
-                    : '${kelvinToCelcius(kState.data!.main!.feelsLike)}°'),
+                size, 'Feels like', feelsLike == 0 ? nullValue : '$feelsLike°'),
+            detailCardText(size, 'Wind Speed',
+                windSpeed == 0 ? nullValue : '$windSpeed m/s'),
             detailCardText(
-                size,
-                'Wind Speed',
-                kState.data == null
-                    ? nullValue
-                    : '${kState.data!.wind!.speed}m/s'),
-            detailCardText(
-                size,
-                'Pressure',
-                kState.data == null
-                    ? nullValue
-                    : '${kState.data!.main!.pressure}mbar'),
+                size, 'Pressure', pressure == 0 ? nullValue : '$pressure mbar'),
           ],
         ),
       ),

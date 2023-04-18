@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:clime_zone/application/add_city_bloc/add_city_bloc.dart';
-
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';
@@ -10,9 +7,14 @@ import 'package:clime_zone/presentation/add_city/widgets/search_res_widget.dart'
 import 'package:clime_zone/presentation/widgets/tiny_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+class LatAndLon {
+  final double lat;
+  final double lon;
+
+  LatAndLon({required this.lat, required this.lon});
+}
 
 class ScreenAddCity extends StatelessWidget {
   const ScreenAddCity({super.key});
@@ -96,6 +98,8 @@ class ScreenAddCity extends StatelessWidget {
                               countryName:
                                   state.searchingCities[index].country ??
                                       nullValue,
+                              lat: state.searchingCities[index].lat ?? 0,
+                              lon: state.searchingCities[index].lon ?? 0,
                             ),
                           ),
                         ),
