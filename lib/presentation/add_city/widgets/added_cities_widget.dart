@@ -1,9 +1,4 @@
-import 'dart:developer';
-
 import 'package:clime_zone/application/add_city_bloc/add_city_bloc.dart';
-import 'package:clime_zone/application/bloc/home_bloc_bloc.dart';
-import 'package:clime_zone/core/color.dart';
-import 'package:clime_zone/core/url.dart';
 import 'package:clime_zone/infrastructure/saved_place_db/i_db_service.dart';
 import 'package:clime_zone/presentation/home/screen_home.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,7 +20,7 @@ class AddedCityItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Card(
         color: value != 0 ? Colors.blue.shade100 : Colors.blue.shade200,
         child: ListTile(

@@ -1,12 +1,11 @@
 import 'package:clime_zone/application/bloc/home_bloc_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/url.dart';
-import 'package:clime_zone/infrastructure/add_city/i_add_city.dart';
 import 'package:clime_zone/presentation/add_city/screen_add_city.dart';
-import 'package:clime_zone/presentation/widgets/tiny_widgets.dart';
+import 'package:clime_zone/presentation/settings/screen_settings.dart';
+import 'package:clime_zone/presentation/widgets/loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class KonstAppBar extends StatelessWidget {
   const KonstAppBar({
@@ -33,7 +32,7 @@ class KonstAppBar extends StatelessWidget {
         child: KonstAppBarButton(
           onClick: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ScreenAddCity(),
+              builder: (context) => const ScreenAddCity(),
             ));
           },
           size: size,
@@ -42,7 +41,7 @@ class KonstAppBar extends StatelessWidget {
         ),
       ),
       title: kState.isLoading
-          ? loadingIndictor
+          ? const KonstLoadingIndictor.white()
           : Text(
               kState.data == null ? nullValue : '${kState.data!.name}',
               style: TextStyle(
@@ -55,7 +54,11 @@ class KonstAppBar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 21),
           child: KonstAppBarButton(
-            onClick: () => Navigator.pushNamed(context, '/settings'),
+            onClick: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ScreenSettings(),
+                )),
             size: size,
             tooltip: "settings",
             icon: CupertinoIcons.settings,

@@ -6,7 +6,6 @@ import 'package:clime_zone/infrastructure/saved_place_db/i_db_service.dart';
 import 'package:clime_zone/presentation/home/widgets/screen_widget.dart';
 import 'package:clime_zone/presentation/widgets/error_widget.dart';
 import 'package:clime_zone/presentation/widgets/loading_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

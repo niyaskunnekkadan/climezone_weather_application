@@ -1,10 +1,8 @@
 import 'package:clime_zone/application/add_city_bloc/add_city_bloc.dart';
-import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart';
 import 'package:clime_zone/domain/saved_places/saved_place_model.dart';
 import 'package:clime_zone/infrastructure/saved_place_db/i_db_service.dart';
 import 'package:clime_zone/presentation/add_city/screen_add_city.dart';
 import 'package:clime_zone/presentation/day_forecast/screen_day_forecast.dart';
-import 'package:clime_zone/presentation/widgets/error_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,7 +62,7 @@ class SearchCityResWidget extends StatelessWidget {
           if (isAdded) {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) => ScreenAddCity(),
+                  builder: (context) => const ScreenAddCity(),
                 ),
                 (route) => false);
           } else {

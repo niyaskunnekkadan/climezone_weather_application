@@ -1,34 +1,13 @@
-import 'dart:developer';
-import 'dart:ffi';
 import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart';
 import 'package:clime_zone/core/color.dart';
-import 'package:clime_zone/core/sizes.dart';
-import 'package:clime_zone/core/url.dart';
+import 'package:clime_zone/core/methods.dart';
 import 'package:clime_zone/domain/home/models/day_hour_forecast_model/list.dart';
-import 'package:clime_zone/domain/saved_places/saved_place_model.dart';
 import 'package:clime_zone/presentation/day_forecast/widgets/day_cast_item_widget.dart';
 import 'package:clime_zone/presentation/widgets/error_widget.dart';
 import 'package:clime_zone/presentation/widgets/loading_indicator.dart';
-import 'package:clime_zone/presentation/widgets/tiny_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-
-String stringToDate(String dt) {
-  DateTime date = DateTime.parse(dt);
-  String formatedDate = DateFormat.yMMMMd('en_US').format(date);
-  if (date.day == DateTime.now().day) {
-    formatedDate = 'Today';
-  } else if (date.day == DateTime.now().add(const Duration(hours: 24)).day) {
-    formatedDate = 'Tommorrow';
-  } else {
-    String d = DateFormat.MMMEd('en_US').format(date);
-    d = d.split(' ').first.substring(0, 3);
-    formatedDate = d;
-  }
-  return formatedDate;
-}
 
 class ScreenDayForecast extends StatelessWidget {
   const ScreenDayForecast({
@@ -40,7 +19,6 @@ class ScreenDayForecast extends StatelessWidget {
 
   final double lat;
   final double lon;
-
   final bool isdayPage;
 
   @override
@@ -153,7 +131,6 @@ class ScreenDayForecast extends StatelessWidget {
 
                             final dt =
                                 DateTime.parse(data.dtTxt!).timeZoneOffset;
-                            log(dt.toString());
 
                             return DayForeCastItem(
                               day:

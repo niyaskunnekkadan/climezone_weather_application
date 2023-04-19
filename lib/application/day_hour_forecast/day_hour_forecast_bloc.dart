@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:clime_zone/domain/core/failure/main_failure.dart';
 import 'package:clime_zone/domain/home/home_service.dart';
@@ -19,6 +17,11 @@ class DayHourForecastBloc
   HomeService homeService;
   DayHourForecastBloc(this.homeService)
       : super(DayHourForecastState.initial()) {
+    /*
+    
+      Initial Event
+    
+     */
     on<Init>((event, emit) async {
       emit(state.copyWith(isLoading: true));
       final data = await homeService.getDayHourForecastData(

@@ -1,20 +1,24 @@
-import 'dart:developer';
-
-import 'package:clime_zone/application/bloc/home_bloc_bloc.dart';
-import 'package:clime_zone/core/url.dart';
 import 'package:clime_zone/domain/saved_places/saved_place_model.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class IDBService {
+  /*
+   
+    singleTon format code
+
+   */
   IDBService._internal();
   static IDBService _instance = IDBService._internal();
-  factory IDBService() {
-    return _instance;
-  }
+  factory IDBService() => _instance;
+
+  // LocalPlaceDB constantName
   static const String dBName = 'SAVED_PLACES';
 
+  /*
+   
+    DB add place Data
+
+   */
   Future<bool> addPlace(SavedPlaceModel model) async {
     final db = await Hive.openBox<SavedPlaceModel>(dBName);
     bool iss = true;
@@ -37,12 +41,22 @@ class IDBService {
     }
   }
 
+  /*
+   
+    DB delete place Data
+
+   */
   Future<void> removePlace(int id) async {
     final db = await Hive.openBox<SavedPlaceModel>(dBName);
 
     await db.deleteAt(id);
   }
 
+  /*
+   
+    DB refresh (current fullDb values return) place Data
+
+   */
   Future<List<SavedPlaceModel>> refreshUi() async {
     final db = await Hive.openBox<SavedPlaceModel>(dBName);
     List<SavedPlaceModel> model = [];

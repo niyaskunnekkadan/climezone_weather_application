@@ -1,5 +1,5 @@
-import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart';
 import 'package:clime_zone/core/color.dart';
+import 'package:clime_zone/core/methods.dart';
 import 'package:clime_zone/core/url.dart';
 import 'package:clime_zone/domain/home/models/day_hour_forecast_model/list.dart';
 import 'package:clime_zone/presentation/day_forecast/screen_day_forecast.dart';

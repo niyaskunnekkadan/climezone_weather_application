@@ -1,5 +1,5 @@
-import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart';
 import 'package:clime_zone/core/color.dart';
+import 'package:clime_zone/core/methods.dart';
 import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';
 import 'package:clime_zone/domain/home/models/day_hour_forecast_model/list.dart';
@@ -36,7 +36,7 @@ class DayHourWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '48 Hours Forecast(3-hours gap)',
+                '48 Hours Forecast(3 Hrs)',
                 style: TextStyle(
                   color: kWhite.withOpacity(.6),
                   fontSize: size.height * .02,

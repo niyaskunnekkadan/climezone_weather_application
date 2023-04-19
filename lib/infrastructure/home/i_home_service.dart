@@ -4,7 +4,6 @@ import 'package:clime_zone/domain/core/api/api_end_points.dart';
 import 'package:clime_zone/domain/core/failure/main_failure.dart';
 import 'package:clime_zone/domain/home/home_service.dart';
 import 'package:clime_zone/domain/home/models/aqi_model/aq_index_model/aq_index_model.dart';
-import 'package:clime_zone/domain/home/models/aqi_model/aq_index_model/list.dart';
 import 'package:clime_zone/domain/home/models/day_hour_forecast_model/day_hour_forecast_model.dart';
 import 'package:clime_zone/domain/home/models/main_weather_model/main_weather_model.dart';
 import 'package:dartz/dartz.dart';
@@ -15,13 +14,18 @@ import 'package:injectable/injectable.dart';
 class IHomeService implements HomeService {
   Dio dio = Dio();
 
-  // Get Main Weather Data
+  /*
+   
+    getMainWeather Data apiCall
+
+   */
   @override
   Future<Either<MainFailure, MainWeatherModel>> getMainWeatherData(
       String lat, String lon) async {
     final url = ApiEndPoints.currentWeatherApi
         .replaceAll('{lat}', lat)
         .replaceAll('{lon}', lon);
+
     try {
       final response = await dio.get(url);
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -36,7 +40,11 @@ class IHomeService implements HomeService {
     }
   }
 
-  // Get AQI data
+  /*
+   
+    getAqiData apiCall
+
+   */
   @override
   Future<Either<MainFailure, AqIndexModel>> getAirQualityData(
       String lat, String lon) async {
@@ -52,14 +60,18 @@ class IHomeService implements HomeService {
       } else {
         return const Left(MainFailure.serverFailure());
       }
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       return const Left(MainFailure.serverFailure());
     } catch (e) {
       return const Left(MainFailure.clientFailure());
     }
   }
 
-  // get day hour forecast
+  /*
+   
+    getDayHourFourCast (foreCast Details) apiCall
+
+   */
   @override
   Future<Either<MainFailure, DayHourForecastModel>> getDayHourForecastData(
       String lat, String lon) async {

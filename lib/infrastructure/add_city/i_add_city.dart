@@ -11,10 +11,16 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: AddCityService)
 class IAddCity implements AddCityService {
+  /*
+   
+    Search place getCities apiCall
+
+   */
   @override
   Future<Either<MainFailure, List<SearchCityModel>>> getCities(
       String place) async {
     final url = ApiEndPoints.searchPlaceApi.replaceAll('{val}', place);
+
     Dio dio = Dio(BaseOptions(responseType: ResponseType.plain));
 
     Map<String, dynamic> listToMap(List<dynamic> d, int i) {

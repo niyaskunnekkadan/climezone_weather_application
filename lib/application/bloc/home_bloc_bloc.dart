@@ -1,13 +1,9 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:clime_zone/domain/core/failure/main_failure.dart';
 import 'package:clime_zone/domain/home/home_service.dart';
 import 'package:clime_zone/domain/home/models/aqi_model/aq_index_model/list.dart';
 import 'package:clime_zone/domain/home/models/main_weather_model/main_weather_model.dart';
 import 'package:clime_zone/domain/saved_places/saved_place_model.dart';
-import 'package:clime_zone/infrastructure/saved_place_db/i_db_service.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -19,12 +15,23 @@ part 'home_bloc_bloc.freezed.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeService homeService;
   HomeBloc(this.homeService) : super(HomeState.initial()) {
+    /*
+    
+      Initial Event
+    
+     */
     on<_InitialLoadList>((event, emit) async {
       emit(state.copyWith(
         isLoading: false,
         listOfPlaces: event.placeList,
       ));
     });
+
+    /*
+    
+      MainData Weather Data Feching Event
+    
+     */
     on<MainCard>((event, emit) async {
       emit(state.copyWith(
         isLoading: true,
@@ -37,23 +44,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       mainData.fold(
         (failure) {
-          if (failure == const MainFailure.clientFailure()) {
-            return emit(HomeState(
-              listOfPlaces: state.listOfPlaces,
-              aqiList: [],
-              isLoading: false,
-              isError: true,
-            ));
-          } else {
-            return emit(
-              HomeState(
-                listOfPlaces: state.listOfPlaces,
-                aqiList: [],
-                isLoading: false,
-                isError: true,
-              ),
-            );
-          }
+          HomeState(
+            listOfPlaces: state.listOfPlaces,
+            aqiList: [],
+            isLoading: false,
+            isError: true,
+          );
         },
         (success) => emit(
           HomeState(
@@ -66,29 +62,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         ),
       );
 
+      /*
+    
+      AQI Data Fetching Event
+    
+     */
       aqiData.fold(
         (failure) {
-          if (failure == const MainFailure.clientFailure()) {
-            return emit(
-              HomeState(
-                listOfPlaces: state.listOfPlaces,
-                aqiList: [],
-                data: state.data,
-                isLoading: false,
-                isError: true,
-              ),
-            );
-          } else {
-            return emit(
-              HomeState(
-                listOfPlaces: state.listOfPlaces,
-                aqiList: [],
-                data: state.data,
-                isLoading: false,
-                isError: true,
-              ),
-            );
-          }
+          HomeState(
+            listOfPlaces: state.listOfPlaces,
+            aqiList: [],
+            data: state.data,
+            isLoading: false,
+            isError: true,
+          );
         },
         (success) => emit(
           HomeState(

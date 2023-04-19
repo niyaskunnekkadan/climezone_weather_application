@@ -1,14 +1,12 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:clime_zone/application/add_city_bloc/add_city_bloc.dart';
-import 'package:clime_zone/application/bloc/home_bloc_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
 import 'package:clime_zone/core/url.dart';
-import 'package:clime_zone/domain/saved_places/saved_place_model.dart';
 import 'package:clime_zone/presentation/add_city/widgets/added_cities_widget.dart';
 import 'package:clime_zone/presentation/add_city/widgets/search_res_widget.dart';
-import 'package:clime_zone/presentation/widgets/tiny_widgets.dart';
+import 'package:clime_zone/presentation/widgets/error_widget.dart';
+import 'package:clime_zone/presentation/widgets/loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 final searchController = TextEditingController();
 
 class ScreenAddCity extends StatelessWidget {
-  ScreenAddCity({super.key});
+  const ScreenAddCity({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +24,7 @@ class ScreenAddCity extends StatelessWidget {
     });
 
     final _debouner = Debouncer(milliseconds: 850);
+
     return Scaffold(
       backgroundColor: kBlack,
       appBar: AppBar(
@@ -49,6 +48,7 @@ class ScreenAddCity extends StatelessWidget {
             CupertinoSearchTextField(
               controller: searchController,
               onChanged: (value) {
+                // debouncer purpose for searching time create a time lag for api calls
                 _debouner.run(() {
                   if (value.isEmpty) {
                     context
@@ -72,21 +72,20 @@ class ScreenAddCity extends StatelessWidget {
             BlocBuilder<AddCityBloc, AddCityState>(
               builder: (context, state) {
                 if (state.isLoading) {
-                  return loadingIndictor;
+                  return const KonstLoadingIndictor.white();
                 } else if (state.isError) {
-                  return const Center(
-                      child: Text(
-                    'No result!',
-                    style: TextStyle(color: Colors.white),
-                  ));
+                  return const KonstErrorWidget.customize(
+                    content: 'type a valid data',
+                    title: 'Oh no!',
+                  );
                 } else if (state.addedCities.isEmpty) {
-                  return const Center(
-                      child: Text(
-                    'No Data',
-                    style: TextStyle(color: Colors.white),
-                  ));
+                  return const KonstErrorWidget();
                 }
+                /*
+                
+                Search Result list
 
+                */
                 return state.searchingCities.isNotEmpty
                     ? Expanded(
                         child: ListView(
@@ -107,13 +106,18 @@ class ScreenAddCity extends StatelessWidget {
                           ),
                         ),
                       )
+
+                    /*
+                
+                     Search Result list
+
+                    */
                     : Expanded(
                         child: ListView(
                           children: List.generate(
                             state.addedCities.length,
                             (index) {
                               final _item = state.addedCities[index];
-
                               return AddedCityItem(
                                 key: Key('addedCityWidget  $index'),
                                 name: _item.name,

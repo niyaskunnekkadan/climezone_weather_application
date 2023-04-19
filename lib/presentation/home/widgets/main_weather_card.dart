@@ -1,10 +1,6 @@
 import 'package:clime_zone/application/bloc/home_bloc_bloc.dart';
 import 'package:clime_zone/core/color.dart';
-//  °
 import 'package:clime_zone/core/sizes.dart';
-import 'package:clime_zone/core/url.dart';
-
-import 'package:clime_zone/domain/home/models/aqi_model/aq_index_model/components.dart';
 import 'package:clime_zone/presentation/air_quality/screen_air_quality.dart';
 import 'package:clime_zone/presentation/home/widgets/konst_location_btn.dart';
 import 'package:flutter/cupertino.dart';

@@ -19,7 +19,6 @@ class ScreenAirQuality extends StatelessWidget {
   final double lon;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<HomeBloc>().add(HomeEvent.mainCard(lat: lat, lon: lon));
     });
