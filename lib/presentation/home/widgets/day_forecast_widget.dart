@@ -87,7 +87,11 @@ class DayForecastWidget extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ScreenDayForecast(lat: lat, lon: lon),
+                    builder: (context) => ScreenDayForecast(
+                      key: Key('DayForeCast $lat$lon'),
+                      lat: lat,
+                      lon: lon,
+                    ),
                   ));
             },
           ),

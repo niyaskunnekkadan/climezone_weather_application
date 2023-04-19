@@ -8,6 +8,7 @@ import 'package:clime_zone/domain/saved_places/saved_place_model.dart';
 import 'package:clime_zone/infrastructure/saved_place_db/i_db_service.dart';
 import 'package:clime_zone/presentation/add_city/screen_add_city.dart';
 import 'package:clime_zone/presentation/add_city/widgets/added_cities_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -93,7 +94,7 @@ class AddCityBloc extends Bloc<AddCityEvent, AddCityState> {
           isLoading: false,
           addedCities: modelList,
           searchingCities: [],
-          isDelete: true,
+          isDelete: state.isDelete ? false : true,
         ),
       );
     });

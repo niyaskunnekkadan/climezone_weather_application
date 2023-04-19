@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ffi';
 import 'package:clime_zone/application/day_hour_forecast/day_hour_forecast_bloc.dart';
 import 'package:clime_zone/core/color.dart';
 import 'package:clime_zone/core/sizes.dart';
@@ -147,12 +148,18 @@ class ScreenDayForecast extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             final data = state.perThreeHour[index];
-                            log(state.city!.name.toString());
+                            final time = DateTime.parse(data.dtTxt!)
+                                .add(const Duration(hours: 5, minutes: 30));
+
+                            final dt =
+                                DateTime.parse(data.dtTxt!).timeZoneOffset;
+                            log(dt.toString());
 
                             return DayForeCastItem(
                               day:
                                   '${DateTime.parse(data.dtTxt!).day}/${DateTime.parse(data.dtTxt!).month}',
-                              date: data.dtTxt!.split(' ').last.substring(0, 5),
+                              date:
+                                  " ${time.hour.toString()} : ${time.minute.toString()}",
                               minTemp: kelvinToCelcius(data.main!.tempMin),
                               maxTemp: kelvinToCelcius(data.main!.tempMax),
                               windSpeed: data.wind!.speed ?? 0,

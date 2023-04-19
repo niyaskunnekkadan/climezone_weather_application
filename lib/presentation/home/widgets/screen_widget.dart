@@ -55,6 +55,7 @@ class ScreenHomeWidget extends StatelessWidget {
                 return ListView(
                   children: [
                     MainWeatherCard(
+                      key: Key('mainWeatherCard $lat$lon'),
                       kState: state,
                       temprature: '${kelvinToCelcius(data!.main!.temp)}',
                       weatherStatus: '${data.weather![0].main}',
@@ -81,12 +82,14 @@ class ScreenHomeWidget extends StatelessWidget {
                         return Column(
                           children: [
                             DayForecastWidget(
+                              key: Key('dayForCastWidget $lat$lon'),
                               threeHourForecsat: state.perThreeHour,
                               lat: lat,
                               lon: lon,
                             ),
                             height20,
                             DayHourWidget(
+                              key: Key('hourForeCastWidget $lat$lon'),
                               lat: lat,
                               lon: lon,
                               perThreeHours: state.perThreeHour,
@@ -96,12 +99,13 @@ class ScreenHomeWidget extends StatelessWidget {
                       },
                     ),
                     DetailsCard(
+                      key: Key('DeatilsCard $lat$lon'),
                       humidity: state.data!.main!.humidity ?? 0,
                       feelsLike: kelvinToCelcius(state.data!.main!.feelsLike),
                       windSpeed: state.data!.wind!.speed ?? 0,
                       pressure: state.data!.main!.pressure ?? 0,
                     ),
-                    CreditText(),
+                    const CreditText(),
                   ],
                 );
               }

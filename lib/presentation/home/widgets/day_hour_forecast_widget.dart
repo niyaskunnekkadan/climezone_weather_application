@@ -67,11 +67,12 @@ class DayHourWidget extends StatelessWidget {
                 16,
                 (index) {
                   MainList data = perThreeHours[index];
-
+                  final time = DateTime.parse(data.dtTxt!)
+                      .add(const Duration(hours: 5, minutes: 30));
                   return DayForeCastItem(
                     day:
                         '${DateTime.parse(data.dtTxt!).day}/${DateTime.parse(data.dtTxt!).month}',
-                    date: '${data.dtTxt!.split(' ').last.substring(0, 5)}',
+                    date: " ${time.hour.toString()}:${time.minute.toString()}",
                     minTemp: kelvinToCelcius(data.main!.tempMin),
                     maxTemp: kelvinToCelcius(data.main!.tempMax),
                     windSpeed: data.wind!.speed ?? 0,
@@ -95,7 +96,7 @@ class DayHourWidget extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ScreenDayForecast(
-                      key: const Key('direct_navigation_hourspage'),
+                      key: Key('screenDayForecast $lat$lon'),
                       lat: lat,
                       lon: lon,
                       isdayPage: false,

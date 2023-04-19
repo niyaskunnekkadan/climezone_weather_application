@@ -69,13 +69,16 @@ class ScreenHome extends StatelessWidget {
               return state.listOfPlaces.isEmpty
 
                   // state listOfPlaces is empty
-                  ? const KonstErrorWidget.customize(
-                      content: 'Empty saved place',
-                      title: 'Oh no!',
+                  ? const Scaffold(
+                      body: KonstErrorWidget.customize(
+                        content: 'Empty saved place',
+                        title: 'Oh no!',
+                      ),
                     )
 
                   // listOfPlaces has value
                   : ScreenHomeWidget(
+                      key: Key('main $value'),
                       lat: state.listOfPlaces[value].latitude,
                       lon: state.listOfPlaces[value].longitude,
                     );

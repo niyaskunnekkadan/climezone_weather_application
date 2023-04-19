@@ -1,6 +1,5 @@
 /*
   apikey1 = 8aac737112154c8d30c70a89d2166e25
-  apikey2 = 09aa55c25fcc559030b9a949e7d67238 
  */
 
 import 'package:clime_zone/domain/saved_places/saved_place_model.dart';

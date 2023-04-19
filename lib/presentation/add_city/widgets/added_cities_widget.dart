@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:clime_zone/application/add_city_bloc/add_city_bloc.dart';
+import 'package:clime_zone/application/bloc/home_bloc_bloc.dart';
 import 'package:clime_zone/core/color.dart';
+import 'package:clime_zone/core/url.dart';
 import 'package:clime_zone/infrastructure/saved_place_db/i_db_service.dart';
 import 'package:clime_zone/presentation/home/screen_home.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,26 +15,19 @@ class AddedCityItem extends StatelessWidget {
     super.key,
     required this.name,
     required this.value,
-    required this.aqiValue,
-    required this.temp,
-    required this.minTemp,
-    required this.maxTemp,
     required this.isDel,
   });
 
   final String name;
-  final int aqiValue;
-  final int temp;
-  final int value;
-  final int minTemp;
-  final int maxTemp;
   final bool isDel;
+  final int value;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 5),
       child: Card(
+        color: value != 0 ? Colors.blue.shade100 : Colors.blue.shade200,
         child: ListTile(
           onTap: () {
             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
@@ -45,7 +40,6 @@ class AddedCityItem extends StatelessWidget {
             context.read<AddCityBloc>().add(const Delete());
           },
           title: Text(name),
-          subtitle: Text('AQI $aqiValue $minTemp°C / $maxTemp°C'),
           trailing: isDel
               ? value != 0
                   ? IconButton(
@@ -57,8 +51,14 @@ class AddedCityItem extends StatelessWidget {
                         CupertinoIcons.delete,
                         color: Colors.red,
                       ))
-                  : Text('$temp°')
-              : Text('$temp°'),
+                  : const Icon(
+                      CupertinoIcons.cloud,
+                      color: Colors.black,
+                    )
+              : const Icon(
+                  CupertinoIcons.cloud,
+                  color: Colors.black,
+                ),
         ),
       ),
     );

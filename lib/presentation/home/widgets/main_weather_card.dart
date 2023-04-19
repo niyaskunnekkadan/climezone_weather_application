@@ -75,6 +75,7 @@ class MainWeatherCard extends StatelessWidget {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) {
                   return ScreenAirQuality(
+                    key: Key('ScreenAirQuality $lat$lon'),
                     lat: lat,
                     lon: lon,
                   );

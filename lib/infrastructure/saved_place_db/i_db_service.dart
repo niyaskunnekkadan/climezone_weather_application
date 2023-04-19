@@ -15,9 +15,26 @@ class IDBService {
   }
   static const String dBName = 'SAVED_PLACES';
 
-  Future<void> addPlace(SavedPlaceModel model) async {
+  Future<bool> addPlace(SavedPlaceModel model) async {
     final db = await Hive.openBox<SavedPlaceModel>(dBName);
-    await db.add(model);
+    bool iss = true;
+    for (int i = 0; i < db.length; i++) {
+      final list = db.values.toList();
+      if (list[i].latitude == model.latitude &&
+          list[i].longitude == model.longitude) {
+        iss = false;
+        break;
+      } else {
+        iss = true;
+      }
+    }
+    if (iss) {
+      await db.add(model);
+
+      return iss;
+    } else {
+      return iss;
+    }
   }
 
   Future<void> removePlace(int id) async {
